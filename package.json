@@ -7,7 +7,7 @@
     "wget": "latest"
   },
   "scripts": {
-    "staff-listing": "node getStaffFromLDAP.js > dist/directory.json",
-    "library-site": "cd dist; wget -mk http://www.library.virginia.edu"
+    "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
+    "library-site": "cd dist/backup; wget -mk http://www.library.virginia.edu"
   }
 }
