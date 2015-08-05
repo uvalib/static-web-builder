@@ -23,7 +23,8 @@ groupClient.bind("cn=lb-user-svcs,ou="+process.env.MYGROUP_USER,process.env.MYGR
       processGroup(entry.object);
     });
     res.on('end', function(result){
-      harvestUsers();
+      // Give the last Group a sec to process
+      setTimeout(harvestUsers,1000);
     });
   });
 });
