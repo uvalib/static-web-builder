@@ -10,7 +10,7 @@ var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' }
     userClient = ldap.createClient({ url: 'ldap://ldap.virginia.edu'});
 
 // find all the non-private groups that start with Library_
-groupClient.bind("cn=lb-user-svcs,ou="+process.env.MYGROUP_USER,process.env.MYGROUP_PASSWORD,function(err) {
+groupClient.bind(process.env.MYGROUP_USER,process.env.MYGROUP_PASSWORD,function(err) {
   assert.ifError(err);
   var opts = {
     filter: "(&(cn=Library_*)(!(uvaPrivateGroup=yes)))",

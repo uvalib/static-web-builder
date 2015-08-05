@@ -7,6 +7,7 @@ npm install
 ```
 
 ## to build static staff directory (in JSON format)
+Set ENV variables for MYGROUP_USER and MYGROUP_PASSWORD for your account that is able to bind to the mygroup LDAP server.
 ```
 npm run staff-listing
 ```
