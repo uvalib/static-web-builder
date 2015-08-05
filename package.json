@@ -1,0 +1,11 @@
+{
+  "name": "static-site-resources",
+  "devDependencies": {
+    "ldapjs": "latest",
+    "q": "latest",
+    "assert": "latest"
+  },
+  "scripts": {
+    "staff-listing": "node getStaffFromLDAP.js > dist/directory.json"
+  }
+}
