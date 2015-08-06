@@ -33,7 +33,7 @@ var processGroup = function(group) {
   if (group.memberUid) {
     var members = (typeof group.memberUid === 'string')? [group.memberUid]:group.memberUid;
     members.forEach(function(uid){ uids.push(uid); });
-    directory.allGroups[group.cn] = {mambers: members };
+    directory.allGroups[group.cn] = {members: members };
   }
 };
 
