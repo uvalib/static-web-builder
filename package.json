@@ -4,10 +4,12 @@
     "ldapjs": "latest",
     "q": "latest",
     "assert": "latest",
-    "wget": "latest"
+    "wget": "latest",
+    "nodeunit": "latest"
   },
   "scripts": {
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
+    "staff-listing-test": "nodeunit test/directory.js",
     "library-site": "cd dist/backup; wget -mk http://www.library.virginia.edu"
   }
 }
