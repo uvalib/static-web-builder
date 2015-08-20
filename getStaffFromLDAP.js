@@ -52,7 +52,7 @@ var getUser = function(uid) {
   var deferred = q.defer(),
       opts = {
         filter: "uid="+uid,
-//        attributes: [],
+        attributes: ['cn','sn','givenName','initials','displayName','title','uid','mail','telephoneNumber','physicalDeliveryOfficeName','labeledUri','OfficeFax','homePhone','eduPersonNickname'],
         scope: 'sub'
       };
   userClient.search("o=University of Virginia,c=US",opts,function(err,res){
