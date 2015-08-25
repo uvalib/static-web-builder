@@ -13,7 +13,8 @@ var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' }
 groupClient.bind(process.env.MYGROUP_USER,process.env.MYGROUP_PASSWORD,function(err) {
   assert.ifError(err);
   var opts = {
-    filter: "(&(cn=Library_*)(!(uvaPrivateGroup=yes)))",
+//    filter: "(&(cn=Library_*)(!(uvaPrivateGroup=yes)))",
+    filter: "(&(!(uvaPrivateGroup=yes))(|(cn=Library_*)(cn=libteam*)))",
     attributes: ['cn','memberUid'],
     scope: 'sub'
   };
