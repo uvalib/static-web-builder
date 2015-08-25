@@ -7,12 +7,15 @@
     "wget": "latest",
     "google-spreadsheet": "latest",
     "nodeunit": "latest",
-    "minimist": "latest"
+    "minimist": "latest",
+    "request-json": "latest"
   },
   "scripts": {
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
-    "staff-listing-test": "nodeunit test/directory.js",
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
+    "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
+    "staff-listing-test": "nodeunit test/directory.js",
+
     "library-site": "cd dist/backup; wget -mk http://www.library.virginia.edu"
   },
   "dependencies": {
