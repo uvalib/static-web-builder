@@ -26,8 +26,19 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
            staff_dir.allGroups[post.additional_info.my_groups_id].children = post.children; 
         }        
       }
+      // tell children groups about their parents
+      for (var i=0; i<body.posts.length; i++) {
+        var post = body.posts[i];
+        if (post.children) {
+          var parent = post.id;
+          for (var j=0; j<post.children; j++) {
+            var child = post.children[j];
+            for (groupid in staff_dir.allGroups) {
+              if (staff_dir.allGroups.wordpressId == child) staff_dir.allGroups[groupid].parent = parent; 
+            }
+          }
+        } 
+      }
       console.log( JSON.stringify(staff_dir) );
-
   });  
-
 });
