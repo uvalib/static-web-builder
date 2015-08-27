@@ -31,7 +31,7 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
         var post = body.posts[i];
         if (post.children) {
           var parent = post.id;
-          for (var j=0; j<post.children; j++) {
+          for (var j=0; j<post.children.length; j++) {
             var child = post.children[j];
             for (groupid in staff_dir.allGroups) {
               if (staff_dir.allGroups[groupid].wordpressId == child) staff_dir.allGroups[groupid].parent = parent; 
