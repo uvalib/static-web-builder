@@ -18,12 +18,14 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
       for (var i=0; i<body.posts.length; i++) {
         var post = body.posts[i];
         if (post.additional_info && post.additional_info.my_groups_id && staff_dir.allGroups[post.additional_info.my_groups_id] ) {
+           staff_dir.allGroups[post.additional_info.my_groups_id].wordpressId = post.id; 
            staff_dir.allGroups[post.additional_info.my_groups_id].title = post.title; 
            staff_dir.allGroups[post.additional_info.my_groups_id].description = post.content; 
+           staff_dir.allGroups[post.additional_info.my_groups_id].contactName = post.additional_info.contact_name; 
+           staff_dir.allGroups[post.additional_info.my_groups_id].contactEmail = post.additional_info.email_address; 
+           staff_dir.allGroups[post.additional_info.my_groups_id].children = post.children; 
         }        
       }
-      //console.log(staff_dir.allGroups.Library_Clemons); 
-      //console.log(body.posts);
       console.log( JSON.stringify(staff_dir) );
 
   });  
