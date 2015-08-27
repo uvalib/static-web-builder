@@ -34,7 +34,7 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
           for (var j=0; j<post.children; j++) {
             var child = post.children[j];
             for (groupid in staff_dir.allGroups) {
-              if (staff_dir.allGroups.wordpressId == child) staff_dir.allGroups[groupid].parent = parent; 
+              if (staff_dir.allGroups[groupid].wordpressId == child) staff_dir.allGroups[groupid].parent = parent; 
             }
           }
         } 
