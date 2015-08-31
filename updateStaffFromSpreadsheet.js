@@ -10,36 +10,13 @@ if (!argv.f) {
 fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 
   var staff_dir = JSON.parse(data),
-//      my_sheet = new GoogleSpreadsheet('14OdpGWsoG6dQbiE5U9goxhOKh1oxovg1VA3_MkErOMw');
-  my_sheet = new GoogleSpreadsheet('1E3v-8i99E1JnT1zT28KsbuUTtP_OyyuNPibWYzyJ6Ek');
+  my_sheet = new GoogleSpreadsheet('1GRi541uPprWN0AY7WPvkOIqR68RcE6fbWp1s5q1uXlA');
   my_sheet.getRows( 1, function(err, row_data){
 
 //console.log(row_data);
       for (var i=0; i<row_data.length; i++) {
          var row = row_data[i];
          if(staff_dir.allMembers.hasOwnProperty(row.computingid)) staff_dir.allMembers[ row.computingid ]['override'] = row;
-/*
-          if (row.lastname)
-              staff_dir.allMembers[ row.computingid ].sn = row.lastname;
-          if (row.firstname)
-              staff_dir.allMembers[ row.computingid ].givenName = row.firstname;
-          if (row.nickname)
-              staff_dir.allMembers[ row.computingid ].eduPersonNickname = row.nickname;
-          if (row.phone)
-              staff_dir.allMembers[ row.computingid ].telephoneNumber = row.phone;
-          if (row.email)
-              staff_dir.allMembers[ row.computingid ].mail = row.email;
-          if (row.title)
-              staff_dir.allMembers[ row.computingid ].title = row.title;
-          if (row.officelocation)
-              staff_dir.allMembers[ row.computingid ].physicalDeliveryOfficeName = row.officelocation;
-          if (row.role)
-              staff_dir.allMembers[ row.computingid ].role = row.role;
-          if (row.profile)
-              staff_dir.allMembers[ row.computingid ].profile = row.profile;
-          if (row.imageurl)
-              staff_dir.allMembers[ row.computingid ].imageurl = row.imageurl;
-*/
       }
       console.log( JSON.stringify(staff_dir) );
   });
