@@ -12,7 +12,7 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
   var staff_dir = JSON.parse(data);
 
   // Get Org descriptions from Wordpress and update the groups in the input JSON
-  var client = request.createClient('http://godwit.lib.virginia.edu/');
+  var client = request.createClient('http://www.library.virginia.edu/');
   client.get('api/get_recent_posts/?dev=1&count=0&post_type=uvalib_organization', function(err, res, body){
 
       for (var i=0; i<body.posts.length; i++) {
