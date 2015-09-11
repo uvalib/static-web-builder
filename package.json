@@ -15,8 +15,10 @@
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "staff-listing-test": "nodeunit test/directory.js",
+    "staff-listing-publish": "rsync -avh --delete -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds",
 
-    "library-site": "cd dist/backup; wget -mk http://www.library.virginia.edu"
+    "library-site-backup-grab": "cd dist/backup; wget -mkp http://www.library.virginia.edu",
+    "library-site-backup-clean": "grep -rl https:// dist/backup/www.library.virginia.edu/ | grep .html$ | xargs -n1 sed -i 's/https:/http:/g'"
   },
   "dependencies": {
   }
