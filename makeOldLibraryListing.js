@@ -11,10 +11,50 @@ fs.readFile('dist/feeds/directory.json',{encoding:'utf-8'},function(err, data){
 
   var client = request.createClient('http://www.library.virginia.edu/');
   client.get('api/get_recent_posts/?dev=1&count=0&post_type=uvalib_study_space', function(err, res, body){
-    var spaces = JSON.parse(data);
-    library_listing['spaces'] = spaces; 
+    library_listing['spaces'] = body; 
 
     client.get('api/get_recent_posts/?dev=1&count=0&post_type=uvalib_library', function(err, res, body){
+      var libs = body.posts; 
+      for (var i=0; i<libs.length; i++) {
+        var lib = libs[i];
+        if (lib.slug) {
+          var obj = {id:lib.slug};
+          if (lib.additional_info.feed_url)
+            obj.feedURL=[lib.additional_info.feed_url];
+          if (lib.additional_info.events_calendar_id)
+            obj.eventscalendarid= lib.additional_info.events_calendar_id;
+          if (lib.thumbnail)
+            obj.thumb= lib.thumbnail;
+          if (lib.additional_info.hours_calendar_id)
+            obj.hourscalendarid= lib.additional_info.hours_calendar_id;
+          if (lib.additional_info.donor_title)
+            obj.donorTitle = lib.additional_info.donor_title;
+          if (lib.additional_info.twitter_handle || lib.additional_info.facebook_url) {
+            obj.socialLinks = {};
+            if (lib.additional_info.twitter_handle)
+              obj.socialLinks.twitter_handle = lib.additional_info.twitter_handle;
+            if (lib.additional_info.facebook_url)
+              obj.socialLinks.facebook_url = lib.additional_info.facebook_url;
+          }
+          if (lib.additional_info.phone_number)
+            obj.phone = lib.additional_info.phone_number;
+          if (lib.url)
+            obj.link = lib.url;
+          if (lib.title)
+            obj.deptName = lib.title;
+          if (lib.additional_info.email_address)
+            obj.email = lib.additional_info.email_address;
+          if (lib.library_type) {
+            obj.categories = [];
+            for (var j=0; j<lib.library_type.length; j++) {
+              obj.categories.push(lib.library_type[j].name.toLowerCase());
+            }
+          }
+          if (lib.content)             
+            obj.description = lib.content;
+          library_listing['directory']['allGroups'][lib.slug] = obj;
+        }
+      }
       console.log( JSON.stringify(library_listing) );
     });
 
