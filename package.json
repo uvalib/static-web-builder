@@ -8,9 +8,12 @@
     "google-spreadsheet": "latest",
     "nodeunit": "latest",
     "minimist": "latest",
-    "request-json": "latest"
+    "request-json": "latest",
+    "firebase-import": "latest"
   },
   "scripts": {
+    "banners-sync": "wget http://drupaltest.lib.virginia.edu/banners -O banners.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /banners/main --json banners.json --merge --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
