@@ -14,6 +14,7 @@
   "scripts": {
     "banners-sync": "wget http://drupaltest.lib.virginia.edu/banners -O banners.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /banners/main --json banners.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "libraries-sync": "wget http://drupaltest.lib.virginia.edu/libraries -O libraries.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /libraries --json libraries.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "services-sync": "wget http://drupaltest.lib.virginia.edu/services -O services.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /services --json services.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
