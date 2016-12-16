@@ -16,7 +16,7 @@ var transform = {
   },
   field_location: {
     newName: "library",
-    props: {target_id:{newName:'libraryId',type:Number},target_uuid:{newName:'uuid',type:String}}
+    props: {target_id:{newName:'id',type:Number},target_uuid:{newName:'uuid',type:String}}
   },
   field_service_email_address: {
     newName: "emailAddress",
