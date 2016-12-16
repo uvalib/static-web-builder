@@ -12,7 +12,7 @@
     "firebase-import": "latest"
   },
   "scripts": {
-    "banners-sync": "wget http://drupaltest.lib.virginia.edu/banners -O banners.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /banners/main --json banners.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "banners-sync": "wget http://drupaltest.lib.virginia.edu/banners -O banners.json; node filter-banner.js > filtered-banners.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /banners/main --json filtered-banners.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "libraries-sync": "wget http://drupaltest.lib.virginia.edu/libraries -O libraries.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /libraries --json libraries.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "services-sync": "wget http://drupaltest.lib.virginia.edu/services -O services.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /services --json services.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     
