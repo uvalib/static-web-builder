@@ -2,12 +2,10 @@ var _ = require('lodash');
 var items = require('./banners.json');
 var transform = {
   nid: {
+    newName: 'id',
     props: {value:String}
   },
   uuid: {
-    props: {value:String}
-  },
-  vid: {
     props: {value:String}
   },
   title: {
@@ -68,23 +66,31 @@ var processProp = function(key, trDef, prop){
     return {};
   }
 };
- 
+
 items = _.map(items, function(item){
   newProps = {};
   for (allowedPropName in transform) {
     if (item.hasOwnProperty(allowedPropName)) {
       var proptr = transform[allowedPropName];
-      newPropName = proptr['newName'] || allowedPropName; 
-      newProps[newPropName] = {};
-      for (pkey in proptr.props) {
-        newProps[newPropName] = Object.assign(newProps[newPropName], processProp(pkey, proptr.props[pkey], item[allowedPropName][0]) ); 
-      } 
-      if (Object.keys(proptr.props).length == 1) {
-        newProps[newPropName] = _.values(newProps[newPropName])[0];
+      newPropName = proptr['newName'] || allowedPropName;
+      newProps[newPropName] = []
+      for (i=0; i<item[allowedPropName].length; i++) {
+        newProps[newPropName][i] = {};
+        for (pkey in proptr.props) {
+          newProps[newPropName][i] = Object.assign(newProps[newPropName][i], processProp(pkey, proptr.props[pkey], item[allowedPropName][i]) );
+        }
+      }
+      if (newProps[newPropName].length == 1) {
+        newProps[newPropName] = newProps[newPropName][0];
+        // If only one property just use the value insead of the whole object
+        if (Object.keys(proptr.props).length == 1) {
+          newProps[newPropName] = _.values(newProps[newPropName])[0];
+        }
       }
     }
   }
   return newProps;
 });
 
+//console.log(items);
 console.log(JSON.stringify(items));

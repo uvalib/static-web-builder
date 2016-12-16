@@ -2,12 +2,10 @@ var _ = require('lodash');
 var items = require('./services.json');
 var transform = {
   nid: {
+    newName: 'id',
     props: {value:String}
   },
   uuid: {
-    props: {value:String}
-  },
-  vid: {
     props: {value:String}
   },
   title: {
