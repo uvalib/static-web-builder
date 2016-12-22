@@ -11,6 +11,9 @@ var transform = {
   title: {
     props: {value: String}
   },
+  body: {
+    props: {value: String}
+  },
   sticky: {
     props: {value: Boolean}
   },
