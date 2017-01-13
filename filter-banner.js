@@ -11,6 +11,10 @@ var transform = {
   title: {
     props: {value: String}
   },
+  field_display_title: {
+    newName: "displayTitle",
+    props: {value: Boolean}
+  },
   sticky: {
     props: {value: Boolean}
   },
@@ -24,6 +28,7 @@ var transform = {
   },
   field_desktop_image: {
     newName: "desktopImage",
+    publishImage: 'url',
     props: {alt:String, width:Number, height:Number, url:String,
             target_uuid:{
               type: String,
@@ -33,6 +38,7 @@ var transform = {
   },
   field_mobile_banner: {
     newName: "phoneImage",
+    publishImage: 'url',
     props: {alt:String, width:Number, height:Number, url:String,
             target_uuid:{
               type: String,
@@ -42,6 +48,7 @@ var transform = {
   },
   field_tablet_image: {
     newName: "tabletImage",
+    publishImage: 'url',
     props: {alt:String, width:Number, height:Number, url:String,
             target_uuid:{
               type: String,
