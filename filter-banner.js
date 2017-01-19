@@ -11,6 +11,9 @@ var transform = {
   title: {
     props: {value: String}
   },
+  body: {
+    props: {value: String}
+  },
   field_display_title: {
     newName: "displayTitle",
     props: {value: Boolean}
