@@ -1,0 +1,17 @@
+{
+  "name": "static-site-resources",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Doug Chestnut <dougchestnut@gmail.com>"
+  ],
+  "license": "Apache2.0",
+  "homepage": "https://github.com/uvalib/static-web-builder",
+  "private": true,
+  "resolutions": {
+    "lodash": "^4.17.4"
+  },
+  "dependencies": {
+    "uvalib-page": "uvalib-components/uvalib-page#latest"
+  }
+}
