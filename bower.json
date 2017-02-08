@@ -9,7 +9,8 @@
   "homepage": "https://github.com/uvalib/static-web-builder",
   "private": true,
   "resolutions": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "polymer": "^1.7.1"
   },
   "dependencies": {
     "uvalib-page": "uvalib-components/uvalib-page#latest"
