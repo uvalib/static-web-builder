@@ -32,6 +32,7 @@
     "library-site-backup-publish": "rsync -avh --delete -e 'ssh -i $HOME/.ssh/id_rsa' dist/backup/www.library.virginia.edu/ static01.lib.virginia.edu:/lib_content47/www.library"
   },
   "dependencies": {
+    "bower": "^1.8.0",
     "fbgraph": "^1.1.0",
     "rss": "^1.2.0",
     "social-aggregate": "git://github.com/uvalib/social-aggregate.git",
