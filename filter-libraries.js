@@ -46,6 +46,14 @@ var transform = {
     newName: "mainImage",
     props: {alt:String, width:Number, height:Number, url:String, target_uuid:{type:String, newName:'uuid'}}
   },
+  field_facilities_management_key: {
+    newName: "fmKey",
+    props: {value:String}
+  },
+  field_fm_location: {
+    newName: "location",
+    props: {lat:String, lng:String}
+  },
   field_mygroup_id: {
     newName: "mygroupID",
     props: {value:String}

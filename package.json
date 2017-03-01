@@ -15,9 +15,11 @@
   "scripts": {
     "home-component-build": "cd bower_components/uvalib-page/ && vulcanize -o uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
+
     "banners-sync": "wget http://drupal.lib.virginia.edu/banners -O banners.json; node filter-banner.js > filtered-banners.json; node getBannerImages.js > fb.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /homebanners --json fb.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "libraries-sync": "wget http://drupal.lib.virginia.edu/libraries -O libraries.json; node filter-libraries.js > filtered-libraries.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /libraries --json filtered-libraries.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "services-sync": "wget http://drupal.lib.virginia.edu/services -O services.json; node filter-services.js > filtered-services.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /services --json filtered-services.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
