@@ -15,6 +15,7 @@ var transform = {
     props: {value: String}
   },
   field_type: {
+    newName: 'type',
     props: {value: String}
   }
 };
