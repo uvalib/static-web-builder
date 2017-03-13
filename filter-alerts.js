@@ -13,6 +13,9 @@ var transform = {
   },
   body: {
     props: {value: String}
+  },
+  type: {
+    props: {value: String}
   }
 };
 
