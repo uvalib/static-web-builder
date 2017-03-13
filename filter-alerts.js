@@ -14,7 +14,7 @@ var transform = {
   body: {
     props: {value: String}
   },
-  type: {
+  field_type: {
     props: {value: String}
   }
 };
