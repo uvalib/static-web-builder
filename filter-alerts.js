@@ -14,8 +14,22 @@ var transform = {
   body: {
     props: {value: String}
   },
+  created: {
+    props: {value: String}
+  },
+  changed: {
+    props: {value: String}
+  },
   field_type: {
     newName: 'type',
+    props: {value: String}
+  },
+  field_action_link: {
+    newName: "link",
+    props: {uri:String}
+  },
+  field_url_fragment: {
+    newName: "urlInclusive",
     props: {value: String}
   }
 };
