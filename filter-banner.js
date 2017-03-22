@@ -41,6 +41,10 @@ var transform = {
     newName: "buttonText",
     props: {value:String}
   },
+  field_tone: {
+    newName: "tone",
+    props: {value:String}
+  },
   field_desktop_image: {
     newName: "desktopImage",
     publishImage: 'url',
@@ -71,7 +75,7 @@ var transform = {
             }
            }
   },
-}; 
+};
 
 var processProp = function(key, trDef, prop){
   var type = trDef.type || trDef;
