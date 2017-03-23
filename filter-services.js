@@ -29,8 +29,12 @@ var transform = {
   field_site_link: {
     newName: "siteLink",
     props: {uri:String}
+  },
+  field_featured: {
+    newName: "featured",
+    props: {value:Number}
   }
-}; 
+};
 
 var processProp = function(key, trDef, prop){
   var type = trDef.type || trDef;
@@ -47,19 +51,19 @@ var processProp = function(key, trDef, prop){
     return {};
   }
 };
- 
+
 items = _.map(items, function(item){
   newProps = {};
   for (allowedPropName in transform) {
     if (item.hasOwnProperty(allowedPropName)) {
       var proptr = transform[allowedPropName];
-      newPropName = proptr['newName'] || allowedPropName; 
+      newPropName = proptr['newName'] || allowedPropName;
       newProps[newPropName] = []
       for (i=0; i<item[allowedPropName].length; i++) {
         newProps[newPropName][i] = {};
         for (pkey in proptr.props) {
-          newProps[newPropName][i] = Object.assign(newProps[newPropName][i], processProp(pkey, proptr.props[pkey], item[allowedPropName][i]) ); 
-        } 
+          newProps[newPropName][i] = Object.assign(newProps[newPropName][i], processProp(pkey, proptr.props[pkey], item[allowedPropName][i]) );
+        }
       }
       if (newProps[newPropName].length == 1) {
         newProps[newPropName] = newProps[newPropName][0];
