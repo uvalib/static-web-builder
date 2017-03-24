@@ -14,8 +14,11 @@ var transform = {
   body: {
     props: {value: String}
   },
-  field_request_paths: {
-    newName: "paths",
+  field_parent_page: {
+    props: {target_id:{newName:'id',type:Number},target_uuid:{newName:'uuid',type:String}}
+  },
+  field_path: {
+    newName: "path",
     props: {value: String}
   }
 };
