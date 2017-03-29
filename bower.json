@@ -10,7 +10,28 @@
   "private": true,
   "resolutions": {
     "lodash": "^4.17.4",
-    "polymer": "^1.7.1"
+    "polymer": "^1.7.1",
+    "uvalib-page": "0.0.5",
+    "uvalib-banner": "0.0.2",
+    "uvalib-elements": "0.0.3",
+    "uvalib-analytics": "0.0.1",
+    "uvalib-button": "0.0.2",
+    "uvalib-events-card": "0.0.1",
+    "uvalib-card": "948118d679",
+    "uvalib-alerts": "58d0433b43",
+    "uvalib-helper-libs": "1.1.4",
+    "uvalib-header": "1.0.3",
+    "uvalib-logos": "0.0.1",
+    "uvalib-hours-card": "0.0.1",
+    "uvalib-search-box": "0.0.1",
+    "uvalib-models": "0.0.3",
+    "uvalib-liame": "0.1.0",
+    "uvalib-social-links": "0.0.1",
+    "uvalib-skip-nav": "0.0.1",
+    "uvalib-news-section": "0.0.2",
+    "uvalib-footer": "0.1.0",
+    "uvalib-theme": "0.0.5",
+    "uvalib-nav": "0.0.4"
   },
   "dependencies": {
     "uvalib-page": "uvalib-components/uvalib-page#latest"
