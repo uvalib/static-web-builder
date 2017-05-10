@@ -15,7 +15,6 @@
   "scripts": {
     "home-component-build": "cd bower_components/uvalib-page/ && vulcanize -o uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
-
     "hours-sync": "wget 'https://api3.libcal.com/api_hours_grid.php?iid=863&format=json&weeks=52' -O hours.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /hours --json hours.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "alerts-sync": "wget http://drupal.lib.virginia.edu/alerts -O alerts.json; node filter-alerts.js > filtered-alerts.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /alerts --json filtered-alerts.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "banners-sync": "wget http://drupal.lib.virginia.edu/banners -O banners.json; node filter-banner.js > filtered-banners.json; node getBannerImages.js > fb.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /homebanners --json fb.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
@@ -24,7 +23,6 @@
     "forms-sync": "wget http://drupal.lib.virginia.edu/forms -O forms.json; node filter-forms.js > filtered-forms.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /forms --json filtered-forms.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "destinations-sync": "wget http://drupal.lib.virginia.edu/destinations -O destinations.json; node filter-destinations.js > filtered-destinations.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /destinations --json filtered-destinations.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "pages-sync": "wget http://drupal.lib.virginia.edu/pages -O pages.json; node filter-pages.js > filtered-pages.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /pages --json filtered-pages.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
@@ -40,7 +38,17 @@
   },
   "dependencies": {
     "bower": "^1.8.0",
+    "cheerio": "^0.22.0",
     "fbgraph": "^1.1.0",
+    "firebase": "^3.9.0",
+    "firebase-admin": "^4.2.1",
+    "imagemagick": "^0.1.3",
+    "imagemin": "^5.2.2",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-pngquant": "^5.0.0",
+    "imagemin-webp": "^4.0.0",
+    "moment": "^2.18.1",
+    "request": "^2.81.0",
     "rss": "^1.2.0",
     "social-aggregate": "git://github.com/uvalib/social-aggregate.git",
     "vulcanize": "^1.15.3"
