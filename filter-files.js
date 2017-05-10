@@ -86,6 +86,7 @@ var munchFileRows = function(fileRows){
       saveToStorage(uuid+file.ext, uuid+file.ext, function(url) {
         file.origSrc = url;
         file.origSrcSize = getFilesizeInBytes(uuid+file.ext);
+        console.log('original size: '+file.origSrcSize);
         //if this is an image get a thumb and tweek the image
         if (file.type == "image/jpeg" || file.type == "image/png") {
           console.log('make other versions of the image');
@@ -131,11 +132,12 @@ var processImage = function(file, callback){
       saveToStorage('processedImages/'+file.uuid+file.ext, file.uuid+'.comp'+file.ext, function(url) {
         file.compSrc = url;
         file.compSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+file.ext);
+        console.log('compressed size: '+file.compSrcSize);
         mkThumb('processedImages/'+file.uuid+file.ext, function(){
           saveToStorage('processedImages/'+file.uuid+file.ext+'thumb', file.uuid+'.thumb'+file.ext, function(url){
             file.thumbSrc = url;
             file.thumbSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+file.ext+'thumb');
-            
+            console.log('thumb size: '+file.thumbSrcSize); 
             // Make a webp image (expermental)
             var webpconfig = (file.type =="image/jpeg")? imageminWebp({quality: 75}):imageminWebp({lossless: true});
             imagemin([file.uuid+file.ext], 'processedImages', {plugins: [webpconfig]})
@@ -144,10 +146,12 @@ var processImage = function(file, callback){
                   saveToStorage('processedImages/'+file.uuid+'.webp', file.uuid+'.webp', function(url){
                       file.webpSrc = url;
                       file.webpSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp');
+                      console.log('webp size: '+file.webpSrcSize);
                       mkThumb('processedImages/'+file.uuid+'.webp', function(){
                         saveToStorage('processedImages/'+file.uuid+'.webp'+'thumb', file.uuid+'.thumb'+'.webp', function(url){
                           file.webpthumbSrc = url;
                           file.webpthumbSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp'+'thumb');
+                          console.log('webp thumb size: '+file.webpthumbSrcSize);
                           callback();
                         });
                       });
