@@ -13,12 +13,12 @@ var fbadmin = require('firebase-admin'),
     imageminWebp = require('imagemin-webp'),
     im = require('imagemagick'),
     gcloud = require('gcloud'),
-    request = require('request');
+    request = require('request'),
+    fbFiles = {};
 
 var storage = gcloud.storage({
   projectId: 'uvalib-api',
   keyFilename: jsonKey 
-//  keyFilename: '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 });
 
 var bucket = storage.bucket('uvalib-api.appspot.com');
@@ -39,6 +39,7 @@ console.log('attempt to get known files');
 // Get all the known files from our api
 filesRef.once("value", function(knownFiles){
 
+  fbFiles = knownFiles.val();
   console.log('file count in db currently '+knownFiles.numChildren());
 
   process.stdin.resume();
@@ -76,21 +77,27 @@ var munchFileRows = function(fileRows){
   file.created = getTime(row, 'views-field-created');
   file.changed = getTime(row, 'views-field-changed');
 
-  // download file for further processing
-  download(href, uuid+file.ext, function(){
-    saveToStorage(uuid+file.ext, uuid+file.ext, function(url) {
-      file.origSrc = url;
-      file.origSrcSize = getFilesizeInBytes(uuid+file.ext);
-      //if this is an image get a thumb and tweek the image
-      if (file.type == "image/jpeg" || file.type == "image/png") {
-        console.log('make other versions of the image');
-        processImage(file, function(){ saveMeta(uuid, file, function(){continueProcessing(fileRows);} )});
-      //else just save file meta to firebase and continue
-      } else {
-        saveMeta(uuid, file, function(){continueProcessing(fileRows);});
-      }
+  if(fbFiles[uuid] && fbFiles[uuid].changed == file.changed) {
+    continueProcessing(fileRows);
+  } else {
+
+    // download file for further processing
+    download(href, uuid+file.ext, function(){
+      saveToStorage(uuid+file.ext, uuid+file.ext, function(url) {
+        file.origSrc = url;
+        file.origSrcSize = getFilesizeInBytes(uuid+file.ext);
+        //if this is an image get a thumb and tweek the image
+        if (file.type == "image/jpeg" || file.type == "image/png") {
+          console.log('make other versions of the image');
+          processImage(file, function(){ saveMeta(uuid, file, function(){continueProcessing(fileRows);} )});
+        //else just save file meta to firebase and continue
+        } else {
+          saveMeta(uuid, file, function(){continueProcessing(fileRows);});
+        }
+      });
     });
-  });
+
+  }
 }
 
 var saveToStorage = function(fin, name, callback){
@@ -100,6 +107,7 @@ var saveToStorage = function(fin, name, callback){
   inStream.pipe(bucketWriteStream).on('finish', function(){
     console.log('saved '+name+' to storage bucket');
     bucketFile.makePublic(function(){
+      console.log('made '+name+' public');
       callback("https://storage.googleapis.com/uvalib-api.appspot.com/"+name);
     });
   }); 
@@ -144,7 +152,7 @@ var processImage = function(file, callback){
                         });
                       });
                   });
-                }
+                } else callback();
               })
               .catch(callback);
 
@@ -170,6 +178,7 @@ var saveMeta = function(uuid, file, callback){
 }
 
 var continueProcessing = function(fileRows){
+  console.log(fileRows.length+" files left to process");
   // continue munching if there are more
   if (fileRows.length > 0)
     munchFileRows(fileRows);
@@ -189,6 +198,7 @@ var getValue = function(context, name){
 
 var exit = function(){
   fbdb.goOffline();
+  console.log('bye bye');
   process.exit(0);  
 }
 
