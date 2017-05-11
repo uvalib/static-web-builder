@@ -1,10 +1,11 @@
-var gcloud = require('gcloud');
+//var gcloud = require('gcloud');
+var gstorage = require('@google-cloud/storage');
 var request = require('request');
 var fs = require('fs');
 var stream = require('stream');
 var banners = require('./filtered-banners.json');
 
-var storage = gcloud.storage({
+var storage = gstorage({
   projectId: 'uvalib-api',
   keyFilename: '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 });

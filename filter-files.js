@@ -1,5 +1,5 @@
-var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
-//var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+//var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 
 var fbadmin = require('firebase-admin'),
     fbserviceAccount = require(jsonKey),
@@ -12,11 +12,12 @@ var fbadmin = require('firebase-admin'),
     imageminPngquant = require('imagemin-pngquant'),    
     imageminWebp = require('imagemin-webp'),
     im = require('imagemagick'),
-    gcloud = require('gcloud'),
+//    gcloud = require('gcloud'),
+    gstorage = require('@google-cloud/storage');
     request = require('request'),
     fbFiles = {};
 
-var storage = gcloud.storage({
+var storage = gstorage({
   projectId: 'uvalib-api',
   keyFilename: jsonKey 
 });
