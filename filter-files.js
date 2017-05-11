@@ -1,5 +1,5 @@
-//var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
-var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+//var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 
 var fbadmin = require('firebase-admin'),
     fbserviceAccount = require(jsonKey),
@@ -77,7 +77,7 @@ var munchFileRows = function(fileRows){
   file.created = getTime(row, 'views-field-created');
   file.changed = getTime(row, 'views-field-changed');
 
-  if(fbFiles[uuid] && fbFiles[uuid].changed == file.changed) {
+  if(fbFiles && fbFiles[uuid] && fbFiles[uuid].changed == file.changed) {
     continueProcessing(fileRows);
   } else {
 
