@@ -1,5 +1,5 @@
-//var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
-var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+//var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 
 var fbadmin = require('firebase-admin'),
     fbserviceAccount = require(jsonKey),
@@ -9,17 +9,16 @@ var fbadmin = require('firebase-admin'),
     moment = require('moment'),
     imagemin = require('imagemin'),
     imageminJpegtran = require('imagemin-jpegtran'),
-    imageminPngquant = require('imagemin-pngquant'),    
+    imageminPngquant = require('imagemin-pngquant'),
     imageminWebp = require('imagemin-webp'),
     im = require('imagemagick'),
-//    gcloud = require('gcloud'),
     gstorage = require('@google-cloud/storage');
     request = require('request'),
     fbFiles = {};
 
 var storage = gstorage({
   projectId: 'uvalib-api',
-  keyFilename: jsonKey 
+  keyFilename: jsonKey
 });
 
 var bucket = storage.bucket('uvalib-api.appspot.com');
@@ -35,7 +34,7 @@ fbadmin.initializeApp({
 var fbdb = fbadmin.database();
 var filesRef = fbdb.ref('files');
 
-console.log('attempt to get known files'); 
+console.log('attempt to get known files');
 
 // Get all the known files from our api
 filesRef.once("value", function(knownFiles){
@@ -67,7 +66,7 @@ var getFilesizeInBytes = function(filename) {
 
 // Todo, skip known files that haven't been changed
 var munchFileRows = function(fileRows){
-  row = $( fileRows.shift() ); 
+  row = $( fileRows.shift() );
   var uuid = getValue(row, 'views-field-uuid');
   var file = {};
   file.uuid = uuid;
@@ -112,7 +111,7 @@ var saveToStorage = function(fin, name, callback){
       console.log('made '+name+' public');
       callback("https://storage.googleapis.com/uvalib-api.appspot.com/"+name);
     });
-  }); 
+  });
 }
 
 var mkThumb = function(fin, callback){
@@ -138,9 +137,27 @@ var processImage = function(file, callback){
           saveToStorage('processedImages/'+file.uuid+file.ext+'thumb', file.uuid+'.thumb'+file.ext, function(url){
             file.thumbSrc = url;
             file.thumbSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+file.ext+'thumb');
-            console.log('thumb size: '+file.thumbSrcSize); 
+            console.log('thumb size: '+file.thumbSrcSize);
             // Make a webp image (expermental)
-            var webpconfig = (file.type =="image/jpeg")? imageminWebp({quality: 75}):imageminWebp({lossless: true});
+            im.convert([file.uuid+file.ext, "-quality", "75", "lossless", "true", 'processedImages/'+file.uuid+'.webp'],function(err,stdout){
+              //if (fs.existsSync('processedImages/'+file.uuid+'.webp')) {
+                saveToStorage('processedImages/'+file.uuid+'.webp', file.uuid+'.webp', function(url){
+                    file.webpSrc = url;
+                    file.webpSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp');
+                    console.log('webp size: '+file.webpSrcSize);
+                    mkThumb('processedImages/'+file.uuid+'.webp', function(){
+                      saveToStorage('processedImages/'+file.uuid+'.webp'+'thumb', file.uuid+'.thumb'+'.webp', function(url){
+                        file.webpthumbSrc = url;
+                        file.webpthumbSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp'+'thumb');
+                        console.log('webp thumb size: '+file.webpthumbSrcSize);
+                        callback();
+                      });
+                    });
+                });
+              //} else callback();
+            });
+            /*
+            var webpconfig = (file.type =="image/jpeg")? imageminWebp({quality: 75}): imageminWebp({lossless: true});
             imagemin([file.uuid+file.ext], 'processedImages', {plugins: [webpconfig]})
               .then(function(){
                 if (fs.existsSync('processedImages/'+file.uuid+'.webp')) {
@@ -160,12 +177,12 @@ var processImage = function(file, callback){
                 } else callback();
               })
               .catch(callback);
-
+*/
 
           });
 
         });
-      }); 
+      });
     })
     // Something happened just trigger the callback
     .catch(function(err){
@@ -178,7 +195,7 @@ var saveMeta = function(uuid, file, callback){
   var fileRef = filesRef.child(uuid);
   fileRef.set(file, function(){
     console.log('downloaded file and saved meta for '+uuid);
-    callback(); 
+    callback();
   });
 }
 
@@ -204,7 +221,7 @@ var getValue = function(context, name){
 var exit = function(){
   fbdb.goOffline();
   console.log('bye bye');
-  process.exit(0);  
+  process.exit(0);
 }
 
 var download = function(uri, filename, callback){
