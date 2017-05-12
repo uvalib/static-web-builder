@@ -44,7 +44,7 @@ var transform = {
   },
   field_main_image: {
     newName: "mainImage",
-    props: {alt:String, width:Number, height:Number, url:String, target_uuid:{type:String, newName:'uuid'}}
+    props: {alt:String, target_uuid:{type:String, newName:'uuid'}}
   },
   field_facilities_management_key: {
     newName: "fmKey",
