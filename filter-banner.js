@@ -75,6 +75,10 @@ var transform = {
             }
            }
   },
+  field_narrow_text: {
+    newName: "narrowText",
+    props: {value: Boolean}
+  }
 };
 
 var processProp = function(key, trDef, prop){
