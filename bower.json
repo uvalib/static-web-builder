@@ -31,7 +31,9 @@
     "uvalib-news-section": "0.0.2",
     "uvalib-footer": "0.1.0",
     "uvalib-theme": "0.0.5",
-    "uvalib-nav": "0.0.4"
+    "uvalib-nav": "0.0.4",
+    "app-storage": "^0.10.0",
+    "iron-icons": "^1.2.1"
   },
   "dependencies": {
     "uvalib-page": "uvalib-components/uvalib-page#latest",
