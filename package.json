@@ -12,7 +12,7 @@
     "firebase-import": "latest"
   },
   "scripts": {
-    "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize -o uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
+    "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize --out-html uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
     "files-sync": "wget -qO- https://drupal.lib.virginia.edu/feeds/files | node filter-files.js ",
     "hours-sync": "wget 'https://api3.libcal.com/api_hours_grid.php?iid=863&format=json&weeks=52' -O hours.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /hours --json hours.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
