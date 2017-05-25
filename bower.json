@@ -12,7 +12,7 @@
     "lodash": "^4.17.4",
     "polymer": "^1.7.1",
     "uvalib-page": "0.0.5",
-    "uvalib-banner": "0.0.2",
+    "uvalib-banner": "master",
     "uvalib-elements": "0.0.3",
     "uvalib-analytics": "0.0.1",
     "uvalib-button": "0.0.2",
