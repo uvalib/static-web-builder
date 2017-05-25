@@ -52,6 +52,6 @@
     "request": "latest",
     "rss": "latest",
     "social-aggregate": "git://github.com/uvalib/social-aggregate.git",
-    "vulcanize": "latest"
+    "vulcanize": "^1.15.4"
   }
 }
