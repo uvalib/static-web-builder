@@ -11,10 +11,9 @@
   "resolutions": {
     "lodash": "^4.17.4",
     "polymer": "^1.7.1",
-    "uvalib-page": "0.0.10",
     "uvalib-banner": "master",
     "uvalib-elements": "0.0.3",
-    "uvalib-analytics": "0.0.1",
+    "uvalib-analytics": "master",
     "uvalib-button": "0.0.2",
     "uvalib-events-card": "0.0.1",
     "uvalib-card": "0.0.3",
@@ -33,10 +32,11 @@
     "uvalib-theme": "0.0.5",
     "uvalib-nav": "0.0.4",
     "app-storage": "^0.10.0",
-    "iron-icons": "^1.2.1"
+    "iron-icons": "^1.2.1",
+    "uvalib-page": "0.0.12"
   },
   "dependencies": {
-    "uvalib-page": "uvalib-components/uvalib-page#0.0.10",
+    "uvalib-page": "uvalib-components/uvalib-page#0.0.12",
     "uvalib-card": "uvalib-components/uvalib-card#7e3b408f4ce3a0974b18ff7ae4364eb89253dc87"
   }
 }
