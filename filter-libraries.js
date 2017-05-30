@@ -130,6 +130,10 @@ var transform = {
     newName: "socialMedia",
     props: {uri:String,title:String}
   },
+  field_slug: {
+    newName: "slug",
+    props: {value:String}
+  },
   field_zip_code: {
     newName: "zipCode",
     props: {value:String}
