@@ -33,10 +33,10 @@
     "uvalib-nav": "0.0.4",
     "app-storage": "^0.10.0",
     "iron-icons": "^1.2.1",
-    "uvalib-page": "0.0.12"
+    "uvalib-page": "^0.1.1"
   },
   "dependencies": {
-    "uvalib-page": "uvalib-components/uvalib-page#0.0.12",
+    "uvalib-page": "uvalib-components/uvalib-page#0.1.1",
     "uvalib-card": "uvalib-components/uvalib-card#7e3b408f4ce3a0974b18ff7ae4364eb89253dc87"
   }
 }
