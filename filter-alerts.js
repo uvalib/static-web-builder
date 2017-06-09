@@ -11,25 +11,47 @@ var transform = {
   title: {
     props: {value: String}
   },
-  body: {
-    props: {value: String}
-  },
   created: {
     props: {value: String}
   },
   changed: {
     props: {value: String}
   },
-  field_type: {
-    newName: 'type',
+  promote: {
+    props: {value: Boolean}
+  },
+  sticky: {
+    props: {value: Boolean}
+  },
+  body: {
     props: {value: String}
   },
-  field_action_link: {
-    newName: "link",
-    props: {uri:String}
+  field_duration: {
+    newName: 'duration',
+    props: {value: String}
+  },
+  field_inactive: {
+    newName: 'inactive',
+    props: {value: Boolean}
+  },
+  field_library: {
+    newName: 'libraryId',
+    props: {target_uuid: String}
+  },
+  field_severity: {
+    newName: 'severity',
+    props: {value: String}
+  },
+  field_start_date: {
+    newName: 'startDate',
+    props: {value: String}
+  },
+  field_type_alert: {
+    newName: 'alertType',
+    props: {value: String}
   },
   field_url_fragment: {
-    newName: "urlInclusive",
+    newName: 'url',
     props: {value: String}
   }
 };
