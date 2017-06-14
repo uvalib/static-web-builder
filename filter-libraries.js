@@ -90,6 +90,10 @@ var transform = {
     newName: "emailAddress",
     props: {value:String}
   },
+  field_hours_information {
+    newName: "hoursInfo",
+    props: {value:String}
+  },
   field_libcal_id: {
     newName: "libcalID",
     props: {value:String}
