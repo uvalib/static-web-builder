@@ -90,7 +90,7 @@ var transform = {
     newName: "emailAddress",
     props: {value:String}
   },
-  field_hours_information {
+  field_hours_information: {
     newName: "hoursInfo",
     props: {value:String}
   },
