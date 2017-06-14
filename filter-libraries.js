@@ -91,7 +91,7 @@ var transform = {
     props: {value:String}
   },
   field_hours_information: {
-    newName: "hoursInfo",
+    newName: "hoursInformation",
     props: {value:String}
   },
   field_libcal_id: {
