@@ -156,28 +156,6 @@ var processImage = function(file, callback){
                 });
               //} else callback();
             });
-            /*
-            var webpconfig = (file.type =="image/jpeg")? imageminWebp({quality: 75}): imageminWebp({lossless: true});
-            imagemin([file.uuid+file.ext], 'processedImages', {plugins: [webpconfig]})
-              .then(function(){
-                if (fs.existsSync('processedImages/'+file.uuid+'.webp')) {
-                  saveToStorage('processedImages/'+file.uuid+'.webp', file.uuid+'.webp', function(url){
-                      file.webpSrc = url;
-                      file.webpSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp');
-                      console.log('webp size: '+file.webpSrcSize);
-                      mkThumb('processedImages/'+file.uuid+'.webp', function(){
-                        saveToStorage('processedImages/'+file.uuid+'.webp'+'thumb', file.uuid+'.thumb'+'.webp', function(url){
-                          file.webpthumbSrc = url;
-                          file.webpthumbSrcSize = getFilesizeInBytes('processedImages/'+file.uuid+'.webp'+'thumb');
-                          console.log('webp thumb size: '+file.webpthumbSrcSize);
-                          callback();
-                        });
-                      });
-                  });
-                } else callback();
-              })
-              .catch(callback);
-*/
 
           });
 
