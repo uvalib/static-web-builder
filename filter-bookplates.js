@@ -26,18 +26,23 @@ var transform = {
            }
   },
   field_fund: {
+    newName: "fund",
     props: {value: String}
   },
   field_fund_award_name: {
+    newName: "fundAwardName",
     props: {value: String}
   },
   field_fund_id: {
+    newName: "fundID",
     props: {value: String}
   },
   field_restriction_summary: {
+    newName: "restrictionSummary",
     props: {value: String}
   },
   field_summary: {
+    newName: "summary",
     props: {value: String}
   }
 };
