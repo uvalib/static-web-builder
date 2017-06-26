@@ -1,21 +1,7 @@
-var _ = require('lodash');
+var jsontr = require('./json-transform.js');
+
 var items = require('./libraries.json');
 var placeTypes = require('./placeTypes.json');
-var processProp = function(key, trDef, prop){
-  var type = trDef.type || trDef;
-  var newKey = trDef.newName || key;
-  if (!prop) {
-    return {};
-  } else if (type == String) {
-    return {[newKey]:prop[key]};
-  } else if (type == Boolean) {
-    return {[newKey]:(prop[key]=="0")?false:true};
-  } else if (type == Number) {
-    return {[newKey]:Number(prop[key])};
-  } else {
-    return {};
-  }
-};
 
 // Discard most of the taxonomy place types information as we just need the uuid and string value
 var transformPlaceTypes = {
@@ -26,30 +12,9 @@ var transformPlaceTypes = {
     props: {value:String}
   }
 };
-placeTypes = _.map(placeTypes, function(item){
-  newProps = {};
-  for (allowedPropName in transformPlaceTypes) {
-    if (item.hasOwnProperty(allowedPropName)) {
-      var proptr = transformPlaceTypes[allowedPropName];
-      newPropName = proptr['newName'] || allowedPropName;
-      newProps[newPropName] = []
-      for (i=0; i<item[allowedPropName].length; i++) {
-        newProps[newPropName][i] = {};
-        for (pkey in proptr.props) {
-          newProps[newPropName][i] = Object.assign(newProps[newPropName][i], processProp(pkey, proptr.props[pkey], item[allowedPropName][i]) );
-        }
-      }
-      if (newProps[newPropName].length == 1) {
-        newProps[newPropName] = newProps[newPropName][0];
-        // If only one property just use the value instead of the whole object
-        if (Object.keys(proptr.props).length == 1) {
-          newProps[newPropName] = _.values(newProps[newPropName])[0];
-        }
-      }
-    }
-  }
-  return newProps;
-});
+
+placeTypes = jsontr.transform(placeTypes,transformPlaceTypes);
+
 // Transform this simplified place type objects array into a lookup table.
 var libraryTypes = Array();
 for (var i=0; i<placeTypes.length; i++) {
@@ -142,32 +107,9 @@ var transform = {
     newName: "zipCode",
     props: {value:String}
   }
-}; 
+};
 
-items = _.map(items, function(item){
-  newProps = {};
-  for (allowedPropName in transform) {
-    if (item.hasOwnProperty(allowedPropName)) {
-      var proptr = transform[allowedPropName];
-      newPropName = proptr['newName'] || allowedPropName; 
-      newProps[newPropName] = [];
-      for (i=0; i<item[allowedPropName].length; i++) {
-        newProps[newPropName][i] = {};
-        for (pkey in proptr.props) {
-          newProps[newPropName][i] = Object.assign(newProps[newPropName][i], processProp(pkey, proptr.props[pkey], item[allowedPropName][i]) ); 
-        } 
-      }
-      if (newProps[newPropName].length == 1) {
-        newProps[newPropName] = newProps[newPropName][0];
-        // If only one property just use the value instead of the whole object
-        if (Object.keys(proptr.props).length == 1) {
-          newProps[newPropName] = _.values(newProps[newPropName])[0];
-        }
-      }
-    }
-  }
-  return newProps;
-});
+items = jsontr.transform(items,transform);
 
 // Loop through libraries and update the name for the place type to lookup the UUID and get the corresponding value
 for (var i=0; i<items.length; i++) {
@@ -180,4 +122,3 @@ for (var i=0; i<items.length; i++) {
 
 //console.log(items);
 console.log(JSON.stringify(items));
-

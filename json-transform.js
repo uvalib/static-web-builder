@@ -17,7 +17,7 @@ var processProp = function(key, trDef, prop){
   }
 };
 
-exports.transform = function(items,transform){ 
+exports.transform = function(items,transform){
   return _.map(items, function(item){
              newProps = {};
              for (allowedPropName in transform) {
@@ -43,4 +43,3 @@ exports.transform = function(items,transform){
              return newProps;
            });
 };
-
