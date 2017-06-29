@@ -117,11 +117,13 @@ items = jsontr.transform(items,transform);
 
 // Loop through libraries and update the name for the place type to lookup the UUID and get the corresponding value
 for (var i=0; i<items.length; i++) {
-  for (prop in items[i]) {
+  var library = items[i];
+  for (prop in library) {
     if (prop == "placeType") {
-      items[i][prop].name = libraryTypes[items[i][prop].uuid];
+      items[i][prop].name = libraryTypes[library[prop].uuid];
     }
   }
+  if (library.shortTitle.length == 0 || !library.shortTitle) items[i].shortTitle = library.title; 
 }
 
 //console.log(items);
