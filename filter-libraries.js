@@ -35,6 +35,10 @@ var transform = {
   body: {
     props: {value: String}
   },
+  field_short_title: {
+    newName: "shortTitle",
+    props: {value:String}
+  },
   field_type: {
     newName: "placeType",
     props: {target_type:{type:String, newName:"name"}, target_uuid:{type:String, newName:'uuid'}}
