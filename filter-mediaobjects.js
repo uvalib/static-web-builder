@@ -1,6 +1,6 @@
 var jsontr = require('./json-transform.js');
 
-var items = require('./bookplates.json');
+var items = require('./mediaobjects.json');
 var transform = {
   nid: {
     newName: 'id',
