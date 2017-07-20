@@ -22,6 +22,7 @@ for (var i=0; i<placeTypes.length; i++) {
 }
 
 var transform = {
+  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}
@@ -123,7 +124,7 @@ for (var i=0; i<items.length; i++) {
       items[i][prop].name = libraryTypes[library[prop].uuid];
     }
   }
-  if (library.shortTitle.length == 0 || !library.shortTitle) items[i].shortTitle = library.title; 
+  if (library.shortTitle.length == 0 || !library.shortTitle) items[i].shortTitle = library.title;
 }
 
 //console.log(items);
