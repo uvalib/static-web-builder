@@ -13,7 +13,9 @@ var processProp = function(key, trDef, prop){
   } else if (type == Number) {
     return {[newKey]:Number(prop[key])};
   } else {
-    return {};
+    var tmp = {};
+    tmp[key]=trDef; 
+    return tmp;
   }
 };
 
@@ -38,7 +40,10 @@ exports.transform = function(items,transform){
                      newProps[newPropName] = _.values(newProps[newPropName])[0];
                    }
                  }
-               }
+               } else if (!transform[allowedPropName].props) {
+                   // Extra properties that doesn't have a props value are copied
+                   newProps[allowedPropName] = transform[allowedPropName];
+               }               
              }
              return newProps;
            });

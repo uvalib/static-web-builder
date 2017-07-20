@@ -2,6 +2,7 @@ var jsontr = require('./json-transform.js');
 
 var items = require('./mediaobjects.json');
 var transform = {
+  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}
@@ -23,15 +24,17 @@ var transform = {
     newName: "attribution",
     props: {value: String}
   },
-  field_media_object_image: {
+  field_media_object_img: {
     newName: "image",
     publishImage: 'url',
-    props: {alt:String, width:Number, height:Number, url:String,
-            target_uuid:{
+    props: {
+        "@type": "ImageObject",
+        alt:String, width:Number, height:Number, url:String,
+        target_uuid:{
               type: String,
               newName: "uuid"
-            }
-           }
+        }
+    }
   }
 };
 
