@@ -35,7 +35,7 @@
     "library-listing-publish": "scp dist/feeds/libraries.json static01.lib.virginia.edu:/lib_content47/static/feeds",
     "staff-aggregate-feeds": "node getSocialFeeds.js > dist/feeds/staffSocial.xml",
     "staff-aggregate-feeds--publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds",
-    "library-site-backup-grab": "cd dist/backup; wget -erobots=off -mkp http://www.library.virginia.edu; exit 0",
+    "library-site-backup-grab": "cd dist/backup; wget -erobots=off -mp http://www.library.virginia.edu; exit 0",
     "library-site-backup-clean": "grep -rl https:// dist/backup/www.library.virginia.edu/ | grep .html$ | xargs -n1 sed -i 's/https:/http:/g'",
     "library-site-backup-publish": "rsync -avh --delete -e 'ssh -i $HOME/.ssh/id_rsa' dist/backup/www.library.virginia.edu/ static01.lib.virginia.edu:/lib_content47/www.library"
   },
