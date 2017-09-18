@@ -21,7 +21,7 @@ var transform = {
     props: {value: String}
   },
   field_area_team: {
-    newName: "areaTeam",
+    newName: "area",
     props: {target_uuid: {type: String, newName: "uuid"}} 
   },
   field_mygroup: {
