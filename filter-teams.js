@@ -1,6 +1,6 @@
 var jsontr = require('./json-transform.js');
 
-var items = require('./areas.json');
+var items = require('./teams.json');
 var transform = {
   "@context": "http://schema.org",
   nid: {
@@ -19,6 +19,10 @@ var transform = {
   },
   body: {
     props: {value: String}
+  },
+  field_area_team: {
+    newName: "areaTeam",
+    props: {target_uuid: {type: String, newName: "uuid"}} 
   },
   field_mygroup: {
     newName: "mygroup",
