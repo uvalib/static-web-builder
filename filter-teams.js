@@ -28,6 +28,10 @@ var transform = {
     newName: "area",
     props: {target_uuid: {type: String, newName: "uuid"}} 
   },
+  field_parent_team: {
+    newName: "parentTeam",
+    props: {target_uuid: {type: String, newName: "uuid"}}
+  },
   field_mygroup: {
     newName: "mygroup",
     props: {value: String}
