@@ -11,10 +11,10 @@ if (!argv.f) {
 var items = require('./people.json');
 var transform = {
 //  "@context": "http://schema.org",
-  nid: {
-    newName: 'id',
-    props: {value:String}
-  },
+//  nid: {
+//    newName: 'id',
+//    props: {value:String}
+//  },
   uuid: {
     props: {value:String}
   },
@@ -58,40 +58,6 @@ var transform = {
   field_button_text: {
     newName: "buttonText",
     props: {value:String}
-  },
-  field_tone: {
-    newName: "tone",
-    props: {value:String}
-  },
-  field_desktop_image: {
-    newName: "desktopImage",
-    publishImage: 'url',
-    props: {alt:String, width:Number, height:Number, url:String,
-            target_uuid:{
-              type: String,
-              newName: "uuid"
-            }
-           }
-  },
-  field_mobile_banner: {
-    newName: "phoneImage",
-    publishImage: 'url',
-    props: {alt:String, width:Number, height:Number, url:String,
-            target_uuid:{
-              type: String,
-              newName: "uuid"
-            }
-           }
-  },
-  field_tablet_image: {
-    newName: "tabletImage",
-    publishImage: 'url',
-    props: {alt:String, width:Number, height:Number, url:String,
-            target_uuid:{
-              type: String,
-              newName: "uuid"
-            }
-           }
   },
 };
 
