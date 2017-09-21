@@ -1,4 +1,12 @@
-var jsontr = require('./json-transform.js');
+var _ = require('lodash'),
+    fs = require('fs'),
+    argv = require('minimist')(process.argv.slice(2)),
+    jsontr = require('./json-transform.js');
+
+if (!argv.f) {
+  console.log( "You must specify the JSON file that you want to merge with the -f flag!" );
+  process.exit()
+}
 
 var items = require('./people.json');
 var transform = {
@@ -87,4 +95,19 @@ var transform = {
   },
 };
 
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
+
+  var staff_dir = JSON.parse(data);
+
+  var peps = jsontr.transform(items,transform);
+  _.values(staff_dir.allMembers).forEach(function(person){
+    if (peps.find(function(p){return p.computingId===person.uid})) {
+      
+    } else {
+      peps.push({computingId:person.uid});
+    }
+  });
+
+  console.log( JSON.stringify( peps ) );
+
+});
