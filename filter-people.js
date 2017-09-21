@@ -54,11 +54,6 @@ var transform = {
     newName: "title",
     props: {value:String}
   },
-
-  field_button_text: {
-    newName: "buttonText",
-    props: {value:String}
-  },
 };
 
 fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
