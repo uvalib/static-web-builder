@@ -10,7 +10,7 @@ if (!argv.f) {
 
 var items = require('./people.json');
 var transform = {
-  "@context": "http://schema.org",
+//  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}
@@ -101,14 +101,25 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 
   var peps = jsontr.transform(items,transform);
   _.values(staff_dir.allMembers).forEach(function(person){
-    var pep = peps.find(function(p){return p.computingId===person.uid});
-    if (pep) {
-      pep.foo="bar"; 
+    var pep = peps.findIndex(function(p){return p.computingId===person.uid});
+    if (pep != -1) {
+      peps[pep] = _.merge(tweekPerson(person),peps[pep]);
     } else {
-      peps.push({foo:"baz",computingId:person.uid});
+      peps.push(tweekPerson(person));
     }
   });
 
   console.log( JSON.stringify( peps ) );
 
 });
+
+var tweekPerson = function(person){
+  return {
+//    address:"",
+//    body:"",
+    computingId:person.uid,
+//    fullName:"",
+//    nickName:"",
+//    title:"",
+  };
+};
