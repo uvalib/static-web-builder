@@ -101,10 +101,11 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 
   var peps = jsontr.transform(items,transform);
   _.values(staff_dir.allMembers).forEach(function(person){
-    if (peps.find(function(p){return p.computingId===person.uid})) {
-      
+    var pep = peps.find(function(p){return p.computingId===person.uid});
+    if (pep) {
+      pep.foo="bar"; 
     } else {
-      peps.push({computingId:person.uid});
+      peps.push({foo:"baz",computingId:person.uid});
     }
   });
 
