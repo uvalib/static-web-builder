@@ -9,7 +9,7 @@ var directory = {allMembers:{},
 var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' }),
     userClient = ldap.createClient({ url: 'ldap://ldap.virginia.edu'});
 
-// find all the non-private groups that start with Library_
+// find all the non-private groups that start with Library_ or libteam
 groupClient.bind(process.env.MYGROUP_USER,process.env.MYGROUP_PASSWORD,function(err) {
   assert.ifError(err);
   var opts = {
