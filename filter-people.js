@@ -87,7 +87,9 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
       peps[pep] = _.merge(tweekPerson(person),peps[pep]);
     } else {
       peps.push(tweekPerson(person));
+      pep = peps.length-1;
     }
+    peps[pep].rid = (peps[pep].email && typeof peps[pep].email === "string")? peps[pep].email.substring(0,peps[pep].email.lastIndexOf("@")).split("").reverse().join(""):null;
   });
 
   console.log( JSON.stringify( peps ) );
