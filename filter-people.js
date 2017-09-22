@@ -37,7 +37,7 @@ var transform = {
     props: {value: String}
   },
   field_email_alias: {
-    newName: "emailAlias",
+    newName: "email",
     props: {value: String}
   },
   field_employee_preferred_name: {
@@ -52,6 +52,26 @@ var transform = {
   },
   field_job_title: {
     newName: "title",
+    props: {value:String}
+  },
+  field_linkedin: {
+    newName: "linkedin",
+    props: {value:String}
+  },
+  field_primary_office_location: {
+    newName: "officeLocation",
+    props: {value:String}
+  },
+  field_primary_phone: {
+    newName: "phone",
+    props: {value:String}
+  },
+  field_professional_profile: {
+    newName:"profile",
+    props: {value:String}
+  },
+  field_twitter: {
+    newName:"twitter",
     props: {value:String}
   },
 };
@@ -76,11 +96,17 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 
 var tweekPerson = function(person){
   return {
-//    address:"",
-//    body:"",
-    computingId:person.uid,
-//    fullName:"",
-//    nickName:"",
-//    title:"",
+    fullName: person.eduPersonNickname? person.eduPersonNickname:person.sn+", "+person.givenName,
+    address: person.physicalDeliveryOfficeName,
+    computingId: person.uid,
+    email: person.mail,
+    nickName: person.eduPersonNickname,
+    title: person.title,
+    displayName: person.displayName,
+    phone: (typeof person.telephoneNumber === "string")? person.telephoneNumber.replace(/^\+1 /,''):null,
+    fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
+    firstName: person.givenName,
+    lastName: person.sn,
+    middleName: person.initials    
   };
 };
