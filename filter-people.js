@@ -84,7 +84,12 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
   _.values(staff_dir.allMembers).forEach(function(person){
     var pep = peps.findIndex(function(p){return p.computingId===person.uid});
     if (pep != -1) {
-      peps[pep] = _.merge(tweekPerson(person),peps[pep]);
+      var p = tweekPerson(person);
+      for (key in peps[pep]) {
+         if (Array.isArray(peps[pep][key]) && peps[pep][key].length == 0) delete peps[pep][key];
+      }
+//      peps[pep] = _.merge(p,peps[pep]);
+      peps[pep] = Object.assign({},p,peps[pep]);
     } else {
       peps.push(tweekPerson(person));
       pep = peps.length-1;
