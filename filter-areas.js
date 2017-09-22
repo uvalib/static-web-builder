@@ -20,6 +20,10 @@ var transform = {
   body: {
     props: {value: String}
   },
+  field_manager: {
+    newName: "manager",
+    props: {target_uuid: {type: String, newName: "uuid"}}
+  },
   field_mygroup: {
     newName: "mygroup",
     props: {value: String}
