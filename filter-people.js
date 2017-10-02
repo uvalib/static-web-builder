@@ -102,18 +102,20 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 });
 
 var tweekPerson = function(person){
-  return {
+  var p = {
     fullName: person.eduPersonNickname? person.eduPersonNickname:person.sn+", "+person.givenName,
     address: person.physicalDeliveryOfficeName,
     computingId: person.uid,
     email: person.mail,
     nickName: person.eduPersonNickname,
     title: person.title,
-    displayName: person.displayName? person.displayName: person.givenName+" "+person.sn,
+    displayName: person.displayName? person.displayName: (person.eduPersonNickname)? person.eduPersonNickname.split(',').reverse().join(' '): person.givenName+" "+person.sn,
     phone: (typeof person.telephoneNumber === "string")? person.telephoneNumber.replace(/^\+1 /,''):null,
     fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
     firstName: person.givenName,
     lastName: person.sn,
     middleName: person.initials    
   };
+  
+  return p;
 };
