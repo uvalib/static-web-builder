@@ -109,7 +109,7 @@ var tweekPerson = function(person){
     email: person.mail,
     nickName: person.eduPersonNickname,
     title: person.title,
-    displayName: person.displayName,
+    displayName: person.displayName? person.displayName: person.givenName+" "+person.sn,
     phone: (typeof person.telephoneNumber === "string")? person.telephoneNumber.replace(/^\+1 /,''):null,
     fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
     firstName: person.givenName,
