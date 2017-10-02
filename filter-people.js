@@ -51,7 +51,7 @@ var transform = {
     }
   },
   field_job_title: {
-    newName: "title",
+    newName: "jobTitle",
     props: {value:String}
   },
   field_linkedin: {
@@ -108,7 +108,7 @@ var tweekPerson = function(person){
     computingId: person.uid,
     email: person.mail,
     nickName: person.eduPersonNickname,
-    title: person.title,
+    jobTitle: person.title,
     displayName: person.displayName? person.displayName: (person.eduPersonNickname)? person.eduPersonNickname.split(',').reverse().join(' '): person.givenName+" "+person.sn,
     phone: (typeof person.telephoneNumber === "string")? person.telephoneNumber.replace(/^\+1 /,''):null,
     fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
