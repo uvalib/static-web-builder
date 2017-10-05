@@ -79,22 +79,25 @@ var transform = {
 fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
 
   var staff_dir = JSON.parse(data);
+  var libstaff = staff_dir.allGroups["Library_Staff"]["members"];
 
   var peps = jsontr.transform(items,transform);
   _.values(staff_dir.allMembers).forEach(function(person){
-    var pep = peps.findIndex(function(p){return p.computingId===person.uid});
-    if (pep != -1) {
-      var p = tweekPerson(person);
-      for (key in peps[pep]) {
-         if (Array.isArray(peps[pep][key]) && peps[pep][key].length == 0) delete peps[pep][key];
+    if (libstaff.includes(person.uid)) {
+      var pep = peps.findIndex(function(p){return p.computingId===person.uid});
+      if (pep != -1) {
+        var p = tweekPerson(person);
+        for (key in peps[pep]) {
+           if (Array.isArray(peps[pep][key]) && peps[pep][key].length == 0) delete peps[pep][key];
+        }
+  //      peps[pep] = _.merge(p,peps[pep]);
+        peps[pep] = Object.assign({},p,peps[pep]);
+      } else {
+        peps.push(tweekPerson(person));
+        pep = peps.length-1;
       }
-//      peps[pep] = _.merge(p,peps[pep]);
-      peps[pep] = Object.assign({},p,peps[pep]);
-    } else {
-      peps.push(tweekPerson(person));
-      pep = peps.length-1;
+      peps[pep].rid = (peps[pep].email && typeof peps[pep].email === "string")? peps[pep].email.substring(0,peps[pep].email.lastIndexOf("@")).split("").reverse().join(""):null;
     }
-    peps[pep].rid = (peps[pep].email && typeof peps[pep].email === "string")? peps[pep].email.substring(0,peps[pep].email.lastIndexOf("@")).split("").reverse().join(""):null;
   });
 
   console.log( JSON.stringify( peps ) );
