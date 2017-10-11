@@ -11,10 +11,6 @@ if (!argv.f) {
 var items = require('./people.json');
 var transform = {
 //  "@context": "http://schema.org",
-//  nid: {
-//    newName: 'id',
-//    props: {value:String}
-//  },
   uuid: {
     props: {value:String}
   },
@@ -74,6 +70,12 @@ var transform = {
     newName:"twitter",
     props: {value:String}
   },
+  field_library: {
+    newName:"library",
+    props: {
+      target_uuid: {type: String, newName: "uuid"}
+    }
+  }
 };
 
 fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
@@ -117,8 +119,8 @@ var tweekPerson = function(person){
     fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
     firstName: person.givenName,
     lastName: person.sn,
-    middleName: person.initials    
+    middleName: person.initials
   };
-  
+
   return p;
 };
