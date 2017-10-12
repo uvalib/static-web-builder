@@ -40,6 +40,10 @@ var transform = {
     newName: "nickName",
     props: {value: String}
   },
+  field_display: {
+    newName: "displayName",
+    props: {value: String}
+  },
   field_image: {
     props: {
       alt:String, width:Number, height:Number, url:String,
