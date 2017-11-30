@@ -28,6 +28,8 @@
     "services-sync": "wget http://drupal.lib.virginia.edu/services -O services.json; node filter-services.js > filtered-services.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /services --json filtered-services.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "forms-sync": "wget http://drupal.lib.virginia.edu/forms -O forms.json; node filter-forms.js > filtered-forms.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /forms --json filtered-forms.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "destinations-sync": "wget http://drupal.lib.virginia.edu/destinations -O destinations.json; node filter-destinations.js > filtered-destinations.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /destinations --json filtered-destinations.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+
+    "blocks-sync": "wget http://drupal.lib.virginia.edu/blocks -O blocks.json; node filter-blocks.js > filtered-blocks.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /blocks --json filtered-blocks.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "pages-sync": "wget http://drupal.lib.virginia.edu/pages -O pages.json; node filter-pages.js > filtered-pages.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /pages --json filtered-pages.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
 
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
