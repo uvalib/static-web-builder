@@ -21,6 +21,14 @@ var transform = {
   field_path: {
     newName: "path",
     props: {value: String}
+  },
+  field_sidebar: {
+    newName: "sidebar",
+    target_uuid: {newName:'uuid',type:String}
+  },
+  field_subnav: {
+    newName: "subnav",
+    target_uuid: {newName:'uuid',type:String}
   }
 };
 
