@@ -1,6 +1,6 @@
 var jsontr = require('./json-transform.js');
 
-var items = require('./pages.json');
+var items = require('./blocks.json');
 var transform = {
   nid: {
     newName: 'id',
