@@ -16,6 +16,7 @@ var transform = {
     props: {value: String}
   },
   field_parent_page: {
+    newName: "parentPage",
     props: {target_id:{newName:'id',type:Number},target_uuid:{newName:'uuid',type:String}}
   },
   field_path: {
@@ -24,11 +25,11 @@ var transform = {
   },
   field_sidebar: {
     newName: "sidebar",
-    target_uuid: {newName:'uuid',type:String}
+    props: {target_uuid: {newName:'uuid',type:String}}
   },
   field_subnav: {
     newName: "subnav",
-    target_uuid: {newName:'uuid',type:String}
+    props: {target_uuid: {newName:'uuid',type:String}}
   }
 };
 
