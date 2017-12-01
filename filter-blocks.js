@@ -10,7 +10,7 @@ var transform = {
     props: {value:String}
   },
   info: {
-    newName:'title,'
+    newName:'title',
     props: {value: String}
   },
   body: {
