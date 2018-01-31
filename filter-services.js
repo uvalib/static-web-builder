@@ -35,6 +35,10 @@ var transform = {
   field_featured: {
     newName: "featured",
     props: {value:Number}
+  },
+  field_audience: {
+    newName: "audience",
+    props: {value:String}
   }
 };
 
