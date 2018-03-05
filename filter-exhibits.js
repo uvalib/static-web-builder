@@ -59,5 +59,5 @@ var transform = {
   }
 };
 
-var json = JSON.stringify(items).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
+var json = JSON.stringify( jsontr.transform(items,transform) ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
 console.log( json );
