@@ -56,6 +56,10 @@ var transform = {
   field_link_to_exhibit_informatio: {
     newName: "link",
     props: {value: String}
+  },
+  field_location_url: {
+    newName: "locationURL",
+    props: {value:String}
   }
 };
 
