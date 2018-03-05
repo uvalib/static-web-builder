@@ -11,10 +11,20 @@ var transform = {
   changed: {
     props: {value:Number}
   },
+  sticky: {
+    props: {value:Boolean}
+  },
+  promote: {
+    props: {value:Boolean}
+  },
   title: {
     props: {value: String}
   },
   body: {
+    props: {value: String}
+  },
+  field_date: {
+    newName: "date",
     props: {value: String}
   },
   field_end_date: {
@@ -35,6 +45,10 @@ var transform = {
     newName: "exhibitStatus",
     props: {value: String}
   },
+  field_further_location_informati: {
+    newName: "furtherLocInfo",
+    props: {value:String}
+  },
   field_library: {
     newName: "library",
     props: {target_uuid:String}
@@ -45,4 +59,5 @@ var transform = {
   }
 };
 
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+var json = JSON.stringify(items).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
+console.log( json );
