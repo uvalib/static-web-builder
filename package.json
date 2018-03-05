@@ -1,43 +1,38 @@
 {
   "name": "static-site-resources",
   "devDependencies": {
-    "ldapjs": "latest",
-    "q": "latest",
     "assert": "latest",
-    "wget": "latest",
+    "firebase-import": "latest",
     "google-spreadsheet": "latest",
-    "nodeunit": "latest",
+    "ldapjs": "latest",
     "minimist": "latest",
+    "nodeunit": "latest",
+    "q": "latest",
     "request-json": "latest",
-    "firebase-import": "latest"
+    "wget": "0.0.1"
   },
   "scripts": {
     "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize --out-html uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
     "files-sync": "wget -qO- https://drupal.lib.virginia.edu/feeds/files | node filter-files.js ",
-
     "events-sync": "wget 'https://api2.libcal.com/1.0/events?key=c45a1428103ed000ba4025e9970edf54&iid=863&cal_id=4299&limit=600&campus=&category=&days=365' -O events.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /events --json events.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "hours-sync": "wget 'https://api3.libcal.com/api_hours_grid.php?iid=863&format=json&weeks=52' -O hours.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /hours --json hours.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-
     "alerts-sync": "wget http://drupal.lib.virginia.edu/alerts -O alerts.json; node filter-alerts.js > filtered-alerts.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /alerts --json filtered-alerts.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "banners-sync": "wget http://drupal.lib.virginia.edu/banners -O banners.json; node filter-banner.js > filtered-banners.json; node getBannerImages.js > fb.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /homebanners --json fb.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /v1/homebanners --json fb.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "bookplates-sync": "wget http://drupal.lib.virginia.edu/bookplates -O bookplates.json; node filter-bookplates.js > filtered-bookplates.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /bookplates --json filtered-bookplates.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "exhibits-sync": "wget http://drupal.lib.virginia.edu/exhibits -O exhibits.json; node filter-exhibits.js > filtered-exhibits.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /exhibits --json filtered-exhibits.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "mediaobject-sync": "wget http://drupal.lib.virginia.edu/mediaobjects -O mediaobjects.json; node filter-mediaobjects.js > filtered-mediaobjects.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /mediaobjects --json filtered-mediaobjects.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-    "libraries-sync": "wget http://drupal.lib.virginia.edu/libs -O libraries.json; wget http://drupal.lib.virginia.edu/taxonomy/place-types -O placeTypes.json; node filter-libraries.js > filtered-libraries.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /libraries --json filtered-libraries.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "libraries-sync": "wget http://drupal.lib.virginia.edu/libs -O libraries.json; wget http://drupal.lib.virginia.edu/taxonomy/place-types -O placeTypes.json; node filter-libraries.js > filtered-libraries.json; sed -i -e 's/drupal\\.lib\\.virginia\\.edu/sites/default/wwwstatic.lib.virginia.edu/g' filtered-libraries.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /libraries --json filtered-libraries.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "services-sync": "wget http://drupal.lib.virginia.edu/services -O services.json; node filter-services.js > filtered-services.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /services --json filtered-services.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "forms-sync": "wget http://drupal.lib.virginia.edu/forms -O forms.json; node filter-forms.js > filtered-forms.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /forms --json filtered-forms.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "destinations-sync": "wget http://drupal.lib.virginia.edu/destinations -O destinations.json; node filter-destinations.js > filtered-destinations.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /destinations --json filtered-destinations.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-
     "blocks-sync": "wget http://drupal.lib.virginia.edu/blocks -O blocks.json; node filter-blocks.js > filtered-blocks.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /blocks --json filtered-blocks.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "pages-sync": "wget http://drupal.lib.virginia.edu/pages -O pages.json; node filter-pages.js > filtered-pages.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /pages --json filtered-pages.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-
     "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
     "areas-sync": "wget http://drupal.lib.virginia.edu/areas -O areas.json; node filter-areas.js | ./extend-areas.js -f dist/feeds/directory.json  > filtered-areas.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /areas --json filtered-areas.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "teams-sync": "wget http://drupal.lib.virginia.edu/teams -O teams.json; node filter-teams.js | ./extend-teams.js -f dist/feeds/directory.json > filtered-teams.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /teams --json filtered-teams.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "people-sync": "wget http://drupal.lib.virginia.edu/people -O people.json; node filter-people.js -f dist/feeds/directory.json > filtered-people.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /people --json filtered-people.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "directory-sync": "npm run staff-listing; npm run areas-sync; npm run teams-sync; npm run people-sync;",
-
     "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "staff-listing-test": "nodeunit test/directory.js",
@@ -63,6 +58,7 @@
     "imagemin-jpegtran": "latest",
     "imagemin-pngquant": "latest",
     "imagemin-webp": "latest",
+    "lodash": "^4.17.5",
     "moment": "latest",
     "rename": "^1.0.4",
     "request": "latest",
