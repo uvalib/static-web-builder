@@ -126,6 +126,6 @@ for (var i=0; i<items.length; i++) {
   }
   if (library.shortTitle.length == 0 || !library.shortTitle) items[i].shortTitle = library.title;
 }
-
+var json = JSON.stringify(items).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
 //console.log(items);
-console.log(JSON.stringify(items));
+console.log(json);
