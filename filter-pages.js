@@ -30,6 +30,10 @@ var transform = {
   field_subnav: {
     newName: "subnav",
     props: {target_uuid: {newName:'uuid',type:String}}
+  },
+  field_serve_via_iframe: {
+    newName: "iframe",
+    props: {value:Boolean}
   }
 };
 
