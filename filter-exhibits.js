@@ -41,7 +41,7 @@ var transform = {
             }
            }
   },
-  field_exhibit_status_foo: {
+  field_exhibition_status_type: {
     newName: "exhibitStatus",
     props: {value: String}
   },
