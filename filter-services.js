@@ -32,6 +32,10 @@ var transform = {
     newName: "siteLink",
     props: {uri:String}
   },
+  field_form: {
+    newName: "formLink",
+    props: {uri:String}
+  },
   field_featured: {
     newName: "featured",
     props: {value:Number}
