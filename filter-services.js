@@ -39,6 +39,14 @@ var transform = {
   field_audience: {
     newName: "audience",
     props: {value:String}
+  },
+  field_owner_person: {
+    newName: "owner",
+    props: {"target_uuid":String}
+  },
+  field_owner_team: {
+    newName: "team",
+    props: {"target_uuid":String}
   }
 };
 
