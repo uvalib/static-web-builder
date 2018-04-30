@@ -1,45 +1,29 @@
-var jsontr = require('./json-transform.js');
+var exec = require('child_process').exec;
+var formList = require('./forms.json');
+var i = 0;
+var allForms = Array();
 
-var items = require('./forms.json');
-var transform = {
-  "@context": "http://schema.org",
-  nid: {
-    newName: 'id',
-    props: {value:String}
-  },
-  uuid: {
-    props: {value:String}
-  },
-  title: {
-    props: {value:String}
-  },
-  body: {
-    props: {value:String}
-  },
-  field_anonymous: {
-    newName: "anonymous",
-    props: {value:Boolean}
-  },
-  field_auto_: {
-    newName: "autoRespond",
-    props: {value:String}
-  },
-  field_message: {
-    newName: "message",
-    props: {value:String}
-  },
-  field_recipients: {
-    newName: "recipients",
-    props: {value:String}
-  },
-  field_redirect_path: {
-    newName: "redirectPath",
-    props: {value:String}
-  },
-  field_require_authentication: {
-    newName: "requireAuthentication",
-    props: {value:Boolean}
+function processForms() {
+  if (i < formList.length) {
+    var cmd = 'wget http://drupal.lib.virginia.edu/webform_rest/'+formList[i].webform[0].target_id+'/elements?_format=json -O frmDetail'+formList[i].webform[0].target_id+'.json'
+    exec(cmd, function (error, stdout, stderr) {
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      } else {
+        var form = {
+          title: formList[i].title[0].value,
+          url: formList[i].webform[0].url,
+          target_id: formList[i].webform[0].target_id,
+          webform: require('./frmDetail'+formList[i].webform[0].target_id+'.json')
+        }
+        allForms[i] = form;
+      }
+      i++;
+      processForms();
+    });
+  } else {
+    console.log(JSON.stringify(allForms));
   }
-};
+}
 
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+processForms();
