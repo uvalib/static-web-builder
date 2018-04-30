@@ -34,7 +34,6 @@
     "teams-sync": "wget http://drupal.lib.virginia.edu/teams?_format=json -O teams.json; node filter-teams.js | ./extend-teams.js -f dist/feeds/directory.json > filtered-teams.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /teams --json filtered-teams.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "people-sync": "wget http://drupal.lib.virginia.edu/people?_format=json -O people.json; node filter-people.js -f dist/feeds/directory.json > filtered-people.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /people --json filtered-people.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "directory-sync": "npm run staff-listing; npm run areas-sync; npm run teams-sync; npm run people-sync;",
-    "staff-listing-override": "node updateStaffFromSpreadsheet.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
     "staff-listing-test": "nodeunit test/directory.js",
     "staff-listing-publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds",
