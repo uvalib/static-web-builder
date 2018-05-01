@@ -19,6 +19,14 @@ function gatherForms() {
         if (error !== null) {
           console.log('exec error: ' + error);
         } else {
+/*          var webform = require('./frmDetail'+form.target_id+'.json');
+          var newWebform = Object();
+          for (var key in webform) {
+            if (/^(fldset_|fld_|mkup_|authenticated|confirmation_page_path|actions)/.test(key)) {
+              newWebform[key] = webform[key];
+            }
+          }
+          form['webform'] = newWebform;*/
           form['webform'] = require('./frmDetail'+form.target_id+'.json');
           allForms[i] = form;
           i++;
