@@ -30,11 +30,11 @@ function gatherForms() {
           console.log('exec error: ' + error);
         } else {
           var webform = require('./frmDetail'+form.target_id+'.json');
-          form['webform'] = _.deep(webform, function(x) {
+          form['webform'] = JSON.stringify(_.deep(webform, function(x) {
               return _.mapKeys(x, function (val, key) {
                 return key.replace('#','');
               });
-          });
+          }));
           allForms[i] = form;
           i++;
           gatherForms();
