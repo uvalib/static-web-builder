@@ -20,18 +20,6 @@ var transform = {
     newName: "displayTitle",
     props: {value: Boolean}
   },
-  field_shady_desktop: {
-    newName: "shadyDesktop",
-    props: {value: Boolean}
-  },
-  field_shady_tablet: {
-    newName: "shadyTablet",
-    props: {value: Boolean}
-  },
-  field_shady_mobile: {
-    newName: "shadyMobile",
-    props: {value: Boolean}
-  },
   sticky: {
     props: {value: Boolean}
   },
@@ -76,10 +64,6 @@ var transform = {
               newName: "uuid"
             }
            }
-  },
-  field_narrow_text: {
-    newName: "narrowText",
-    props: {value: Boolean}
   }
 };
 
