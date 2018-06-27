@@ -48,4 +48,9 @@ var transform = {
   }
 };
 
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+var items = jsontr.transform(items,transform);
+items.forEach(function(item){
+  if (item.fundID) item.url = "https://www.library.virginia.edu/bookplates/"+item.fundID;
+});
+
+console.log( JSON.stringify( items ) );
