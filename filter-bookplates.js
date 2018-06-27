@@ -50,6 +50,7 @@ var transform = {
 
 var items = jsontr.transform(items,transform);
 items.forEach(function(item){
+  if (item.bookplateImage && item.bookplateImage.url) item.bookplateImage.url = item.bookplateImage.url.replace('https://drupal.lib.virginia.edu/sites/default/','https://wwwstatic.lib.virginia.edu/');
   if (item.fundID) item.url = "https://www.library.virginia.edu/bookplates/"+item.fundID;
 });
 
