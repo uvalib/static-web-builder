@@ -10,7 +10,6 @@ if (!argv.f) {
 
 var items = require('./people.json');
 var transform = {
-//  "@context": "http://schema.org",
   uuid: {
     props: {value:String}
   },

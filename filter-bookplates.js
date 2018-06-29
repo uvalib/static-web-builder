@@ -2,7 +2,6 @@ var jsontr = require('./json-transform.js');
 
 var items = require('./bookplates.json');
 var transform = {
-  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}
@@ -25,6 +24,10 @@ var transform = {
               newName: "uuid"
             }
            }
+  },
+  field_date: {
+    newName: "date",
+    props: {value: String}
   },
   field_fund: {
     newName: "fund",

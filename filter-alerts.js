@@ -2,7 +2,6 @@ var jsontr = require('./json-transform.js');
 
 var items = require('./alerts.json');
 var transform = {
-  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}

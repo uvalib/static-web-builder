@@ -22,7 +22,6 @@ for (var i=0; i<placeTypes.length; i++) {
 }
 
 var transform = {
-  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}

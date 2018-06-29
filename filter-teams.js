@@ -4,7 +4,6 @@ var jsontr = require('./json-transform.js'),
 var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' });
 var items = require('./teams.json');
 var transform = {
-  "@context": "http://schema.org",
   nid: {
     newName: 'id',
     props: {value:String}
