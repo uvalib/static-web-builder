@@ -34,6 +34,10 @@ var transform = {
   field_serve_via_iframe: {
     newName: "iframe",
     props: {value:Boolean}
+  },
+  field_advanced_alt_template: {
+    newName: "template",
+    props: {value:String}
   }
 };
 
