@@ -38,6 +38,10 @@ var transform = {
   field_advanced_alt_template: {
     newName: "template",
     props: {value:String}
+  },
+  field_advanced_no_bots: {
+    newName: "noCrawl",
+    props: {value:Boolean}
   }
 };
 
