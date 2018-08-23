@@ -14,6 +14,7 @@
   "scripts": {
     "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize --out-html uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
+    "old-files-sync": "wget -qO- https://drupal.lib.virginia.edu/feeds/files?_format=json | node old-filter-files.js ",
     "files-sync": "wget https://drupal.lib.virginia.edu/rest/files?_format=json -O files.json; node filter-files.js > filtered-files.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /files --json filtered-files.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "events-sync": "wget 'https://api2.libcal.com/1.0/events?key=c45a1428103ed000ba4025e9970edf54&iid=863&cal_id=4299&limit=600&campus=&category=&days=365' -O events.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /events --json events.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "hours-sync": "wget 'https://api3.libcal.com/api_hours_grid.php?iid=863&format=json&weeks=52' -O hours.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /hours --json hours.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
