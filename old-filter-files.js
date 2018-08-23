@@ -1,5 +1,5 @@
-//var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
-var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+var jsonKey = '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+//var jsonKey = '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 
 var fbadmin = require('firebase-admin'),
     fbserviceAccount = require(jsonKey),
@@ -87,14 +87,15 @@ var munchFileRows = function(fileRows){
         file.origSrc = url;
         file.origSrcSize = getFilesizeInBytes(uuid+file.ext);
         console.log('original size: '+file.origSrcSize);
+        continueProcessing(fileRows);
         //if this is an image get a thumb and tweek the image
-        if (file.type == "image/jpeg" || file.type == "image/png") {
-          console.log('make other versions of the image');
-          processImage(file, function(){ saveMeta(uuid, file, function(){continueProcessing(fileRows);} )});
-        //else just save file meta to firebase and continue
-        } else {
-          saveMeta(uuid, file, function(){continueProcessing(fileRows);});
-        }
+//        if (file.type == "image/jpeg" || file.type == "image/png") {
+//          console.log('make other versions of the image');
+//          processImage(file, function(){ saveMeta(uuid, file, function(){continueProcessing(fileRows);} )});
+//        //else just save file meta to firebase and continue
+//        } else {
+//          saveMeta(uuid, file, function(){continueProcessing(fileRows);});
+//        }
       });
     });
 
