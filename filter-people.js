@@ -109,6 +109,9 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
     }
   });
 
+  peps.forEach(function(pep){
+    if (pep.field_image) pep.field_image = pep.field_image.replace('https://drupal.lib.virginia.edu/sites/default/files/','https://www.library.virginia.edu/files/');
+  });
   console.log( JSON.stringify( peps ) );
 
 });
