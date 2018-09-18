@@ -73,6 +73,10 @@ var transform = {
     newName:"twitter",
     props: {value:String}
   },
+  field_blogs: {
+    newName:"blogs",
+    prop: {value:String}
+  },
   field_library: {
     newName:"library",
     props: {
