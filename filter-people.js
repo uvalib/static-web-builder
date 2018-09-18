@@ -99,7 +99,6 @@ fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
         for (key in peps[pep]) {
            if (Array.isArray(peps[pep][key]) && peps[pep][key].length == 0) delete peps[pep][key];
         }
-  //      peps[pep] = _.merge(p,peps[pep]);
         peps[pep] = Object.assign({},p,peps[pep]);
       } else {
         peps.push(tweekPerson(person));

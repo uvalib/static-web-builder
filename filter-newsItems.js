@@ -13,6 +13,12 @@ var transform = {
   title: {
     props: {value: String}
   },
+  created: {
+    props: {value: Number}
+  },
+  changed: {
+    props: {value: Number}
+  },
   body: {
     props: {value: String}
   },
