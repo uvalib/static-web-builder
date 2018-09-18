@@ -14,7 +14,7 @@ var processProp = function(key, trDef, prop){
     return {[newKey]:Number(prop[key])};
   } else {
     var tmp = {};
-    tmp[key]=trDef; 
+    tmp[key]=trDef;
     return tmp;
   }
 };
@@ -36,14 +36,14 @@ exports.transform = function(items,transform){
                  if (newProps[newPropName].length == 1) {
                    newProps[newPropName] = newProps[newPropName][0];
                    // If only one property just use the value insead of the whole object
-                   if (Object.keys(proptr.props).length == 1) {
+                   if (proptr && proptr.props && Object.keys(proptr.props).length == 1) {
                      newProps[newPropName] = _.values(newProps[newPropName])[0];
                    }
                  }
                } else if (!transform[allowedPropName].props) {
                    // Extra properties that doesn't have a props value are copied
                    newProps[allowedPropName] = transform[allowedPropName];
-               }               
+               }
              }
              return newProps;
            });
