@@ -9,6 +9,7 @@ console.log(
         id:p.id,
         slug:p.slug,
         link:p.url,
+        image:(p.attachments && p.attachments.length>0)? p.attachments[0].url:"",
         title:p.title,
         body:p.content,
         excerpt:p.excerpt,
