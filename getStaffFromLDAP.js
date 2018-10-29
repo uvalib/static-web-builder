@@ -1,4 +1,4 @@
-var ldap = require('ldapjs'),
+var = require('promised-ldap');,
     q = require('q'),
     assert = require('assert');
 
@@ -6,8 +6,8 @@ var directory = {allMembers:{},
                  allGroups:{}},
     uids = [];
 
-var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' }),
-    userClient = ldap.createClient({ url: 'ldap://ldap.virginia.edu'});
+var groupClient = new LdapClient({ url: 'ldap://pitchfork.itc.virginia.edu' }),
+    userClient = new LdapClient({ url: 'ldap://ldap.virginia.edu'});
 
 // find all the non-private groups that start with Library_ or libteam
 groupClient.bind(process.env.MYGROUP_USER,process.env.MYGROUP_PASSWORD,function(err) {
