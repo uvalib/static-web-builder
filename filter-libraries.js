@@ -110,6 +110,10 @@ var transform = {
   field_zip_code: {
     newName: "zipCode",
     props: {value:String}
+  },
+  field_parent: {
+    newName: "parent",
+    props: { target_uuid:String }
   }
 };
 
