@@ -1,12 +1,7 @@
 var _ = require('lodash'),
-    fs = require('fs'),
     argv = require('minimist')(process.argv.slice(2)),
-    jsontr = require('./json-transform.js');
-
-if (!argv.f) {
-  console.log( "You must specify the JSON file that you want to merge with the -f flag!" );
-  process.exit()
-}
+    jsontr = require('./json-transform.js'),
+    LdapClient = require('promised-ldap')
 
 var items = require('./people.json');
 var transform = {
@@ -16,31 +11,11 @@ var transform = {
   changed: {
     props: {value:Number}
   },
-  title: {
-    newName: "fullName",
-    props: {value: String}
-  },
   body: {
-    props: {value: String}
-  },
-  field_address: {
-    newName: "address",
     props: {value: String}
   },
   field_computing_id: {
     newName: "computingId",
-    props: {value: String}
-  },
-  field_email_alias: {
-    newName: "email",
-    props: {value: String}
-  },
-  field_employee_preferred_name: {
-    newName: "nickName",
-    props: {value: String}
-  },
-  field_display: {
-    newName: "displayName",
     props: {value: String}
   },
   field_image: {
@@ -82,54 +57,71 @@ var transform = {
     props: {
       target_uuid: {type: String, newName: "uuid"}
     }
+  },
+  field_private: {
+    newName:"private",
+    prop: {value:Boolean}
   }
 };
 
-fs.readFile(argv.f,{encoding:'utf-8'},function(err, data){
+function stripEmpty(o) {
+  for(k in o) {
+    var v = o[k]
+    if (v==="" || v===null || v===undefined || (v && v.length==0))
+      delete o[k]
+  }
+  return o
+}
 
-  var staff_dir = JSON.parse(data);
-  var libstaff = staff_dir.allGroups["Library_Staff"]["members"];
-
-  var peps = jsontr.transform(items,transform);
-  _.values(staff_dir.allMembers).forEach(function(person){
-    if (libstaff.includes(person.uid)) {
-      var pep = peps.findIndex(function(p){return p.computingId===person.uid});
-      if (pep != -1) {
-        var p = tweekPerson(person);
-        for (key in peps[pep]) {
-           if (Array.isArray(peps[pep][key]) && peps[pep][key].length == 0) delete peps[pep][key];
-        }
-        peps[pep] = Object.assign({},p,peps[pep]);
-      } else {
-        peps.push(tweekPerson(person));
-        pep = peps.length-1;
-      }
-      peps[pep].rid = (peps[pep].email && typeof peps[pep].email === "string")? peps[pep].email.substring(0,peps[pep].email.lastIndexOf("@")).split("").reverse().join(""):null;
-    }
-  });
-
-  peps.forEach(function(pep){
-    if (pep.field_image && pep.field_image.url) pep.field_image.url = pep.field_image.url.replace('https://drupal.lib.virginia.edu/sites/default/files/','https://www.library.virginia.edu/files/');
-  });
-  console.log( JSON.stringify( peps ) );
-
-});
+var clean = function(item) {
+  return item?
+    Array.isArray(item)? 
+      item.join(', '): 
+      item.replace(/^E0:/,''):
+    "";
+}
 
 var tweekPerson = function(person){
   var p = {
-    fullName: person.eduPersonNickname? person.eduPersonNickname:person.sn+", "+person.givenName,
-    address: person.physicalDeliveryOfficeName,
+    fullName: person.displayName,
+    address: clean(person.physicalDeliveryOfficeName),
     computingId: person.uid,
-    email: person.mail,
+    email: person.mailForwardingAddress,
     nickName: person.eduPersonNickname,
-    jobTitle: person.title,
-    displayName: person.displayName? person.displayName: (person.eduPersonNickname)? person.eduPersonNickname.split(',').reverse().join(' '): person.givenName+" "+person.sn,
-    phone: (typeof person.telephoneNumber === "string")? person.telephoneNumber.replace(/^\+1 /,''):null,
-    fax: (typeof person.OfficeFax === "string")? person.OfficeFax.replace(/^\+1 /,''):null,
+    jobTitle: clean(person.title),
+    displayName: person.displayName,
+    phone: clean(person.telephoneNumber).replace(/^\+1 /g,''),
+    fax: clean(person.facsimileTelephoneNumber).replace(/^\+1 /g,''),
     firstName: person.givenName,
     lastName: person.sn,
     middleName: person.initials
   };
-
-  return p;
+  return stripEmpty(p);
 };
+
+async function getPeopleFromLdap(){
+  var client = new LdapClient({url: 'ldap://ldap.virginia.edu'});
+  var base = "ou=People,o=University of Virginia,c=US";
+  var staff = await client.search(base, {filter:"(|(ou=E0:LB-Univ Librarian-General*)(ou=E0:LB-Central Svcs)(ou=E0:LB-User Svcs*))", scope:'sub'});
+  return staff.entries.map(s=>{return tweekPerson(s.object)}); 
+}
+
+var result;
+async function doIt(){
+  var peopleFromDrupal = jsontr.transform(items,transform).reduce(function(o,val){ o[val.computingId]=stripEmpty(val); return o; },{});
+  var peopleFromLdap = await getPeopleFromLdap();
+  // Merge the peopleFromLdap with peopleFromDrupal with drupal having priority priority for same keys
+  //var result = peopleFromLdap.map((uid)=>Object.assign(peopleFromLdap[uid], peopleFromDrupal[uid]))
+  peopleFromLdap.forEach(p=>{
+    if (peopleFromDrupal[p.computingId]) {
+      p = Object.assign(p, peopleFromDrupal[p.computingId]);      
+    }    
+  });
+  //console.log(JSON.stringify(result))
+  result = peopleFromLdap.filter(p=>!p.private);
+}
+
+doIt().then(function(){
+  console.log(JSON.stringify(result))
+  process.exit()})
+.catch(function(e){console.log(e); process.exit(1)});

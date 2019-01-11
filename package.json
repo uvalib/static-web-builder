@@ -33,22 +33,14 @@
     "blocks-sync": "wget http://drupal.lib.virginia.edu/blocks?_format=json -O blocks.json; node filter-blocks.js > filtered-blocks.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /blocks --json filtered-blocks.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "pages-sync": "./getFeeds.sh; wget http://drupal.lib.virginia.edu/pages?_format=json -O pages.json; node filter-pages.js > filtered-pages.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /pages --json filtered-pages.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
     "exhibit-pages-sync": "wget https://drupal.lib.virginia.edu/rest/major-exhibit-pages?_format=json -O exhibit-pages.json; node filter-exhibit-pages.js > filtered-exhibit-pages.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /exhibit-pages --json filtered-exhibit-pages.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-    "staff-listing": "node getStaffFromLDAP.js > dist/feeds/directory.json",
-    "areas-sync": "wget http://drupal.lib.virginia.edu/areas?_format=json -O areas.json; node filter-areas.js | ./extend-areas.js -f dist/feeds/directory.json  > filtered-areas.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /areas --json filtered-areas.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-    "teams-sync": "wget http://drupal.lib.virginia.edu/teams?_format=json -O teams.json; node filter-teams.js | ./extend-teams.js -f dist/feeds/directory.json > filtered-teams.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /teams --json filtered-teams.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-    "people-sync": "wget http://drupal.lib.virginia.edu/people?_format=json -O people.json; node new-filter-people.js > filtered-people.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /people --json filtered-people.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
-    "directory-sync": "npm run staff-listing; npm run areas-sync; npm run teams-sync; npm run people-sync;",
-    "group-listing-extend": "node updateGroupsFromWordpress.js -f dist/feeds/directory.json > dist/feeds/directory-new.json; mv dist/feeds/directory-new.json dist/feeds/directory.json",
-    "staff-listing-test": "nodeunit test/directory.js",
-    "staff-listing-publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds",
-    "library-listing": "npm run staff-listing; node makeOldLibraryListing.js > dist/feeds/libraries.json",
-    "library-listing-publish": "scp dist/feeds/libraries.json static01.lib.virginia.edu:/lib_content47/static/feeds",
+
+    "people-sync": "wget http://drupal.lib.virginia.edu/people?_format=json -O people.json; node filter-people.js > filtered-people.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /people --json filtered-people.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "areas-sync": "wget http://drupal.lib.virginia.edu/areas?_format=json -O areas.json; node filter-areas.js > filtered-areas.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /areas --json filtered-areas.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "teams-sync": "wget http://drupal.lib.virginia.edu/teams?_format=json -O teams.json; node filter-teams.js > filtered-teams.json; firebase-import --database_url https://uvalib-api.firebaseio.com --path /teams --json filtered-teams.json --force --service_account /home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json",
+    "directory-sync": "npm run people-sync; npm run areas-sync; npm run teams-sync;",
+
     "staff-aggregate-feeds": "node getSocialFeeds.js > dist/feeds/staffSocial.xml",
-    "staff-aggregate-feeds--publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds",
-    "library-site-backup-grab": "cd dist/backup; wget -erobots=off -mp http://www.library.virginia.edu; exit 0",
-    "library-site-backup-fix": "find -iname *\\?ver=* -type f -exec ./prename.pl 's/(.*)\\?ver.*/$1/' {} \\;",
-    "library-site-backup-clean": "grep -rl https:// dist/backup/www.library.virginia.edu/ | grep .html$ | xargs -n1 sed -i 's/https:/http:/g'",
-    "library-site-backup-publish": "rsync -avh --delete -e 'ssh -i $HOME/.ssh/id_rsa' dist/backup/www.library.virginia.edu/ static01.lib.virginia.edu:/lib_content47/www.library"
+    "staff-aggregate-feeds--publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.1.0",

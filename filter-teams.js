@@ -1,7 +1,5 @@
-var jsontr = require('./json-transform.js'),
-    ldap = require('ldapjs');
+var jsontr = require('./json-transform.js');
 
-var groupClient = ldap.createClient({ url: 'ldap://pitchfork.itc.virginia.edu' });
 var items = require('./teams.json');
 var transform = {
   nid: {
@@ -33,14 +31,27 @@ var transform = {
     newName: "parentTeam",
     props: {target_uuid: {type: String, newName: "uuid"}}
   },
-  field_mygroup: {
-    newName: "mygroup",
-    props: {value: String}
+  field_members: {
+    newName: "members",
+    props: {target_uuid: {type: String, newName: "uuid"}}
   }
 };
 
 var items = jsontr.transform(items,transform);
+var rp = require('request-promise');
+var getuserids = async function(){
+  var u = await rp({uri:'https://uvalib-api.firebaseio.com/people.json',json:true});
+  var mapping = u.reduce((map,obj)=>{
+    map[obj.uuid] = obj.computingId;
+    return map
+  },{});
+  items.forEach(i=>{
+    if (i.members && Array.isArray(i.members)) {
+      i.members = i.members.map(j=>mapping[j.uuid])
+    }
+  });
+}
 
-
-
-console.log( JSON.stringify( items ) );
+getuserids().then(function(){
+  console.log( JSON.stringify( items ) );
+});
