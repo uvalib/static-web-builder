@@ -102,11 +102,11 @@ var tweekPerson = function(person){
 async function getPeopleFromLdap(){
   var client = new LdapClient({url: 'ldap://ldap.virginia.edu'});
   var base = "ou=People,o=University of Virginia,c=US";
-  var staff = await client.search(base, {filter:"(|(|(ou=E0:LB-Univ Librarian-General*)(ou=E0:LB-Central Svcs))(ou=E0:LB-User Svcs*))", scope:'sub'});
+//  var staff = await client.search(base, {filter:"(|(ou=E0:LB-Univ Librarian-General*)(ou=E0:LB-Central Svcs*)(ou=E0:LB-User Svcs*))", scope:'sub'});
+  var staff = await client.search(base, {filter:"ou=E0:LB-Central Svcs", scope:'sub'});
   return staff.entries.map(s=>{return tweekPerson(s.object)}); 
 }
 
-var result;
 async function doIt(){
   var peopleFromDrupal = jsontr.transform(items,transform).reduce(function(o,val){ o[val.computingId]=stripEmpty(val); return o; },{});
   var peopleFromLdap = await getPeopleFromLdap();
@@ -117,11 +117,10 @@ async function doIt(){
       p = Object.assign(p, peopleFromDrupal[p.computingId]);      
     }    
   });
-  //console.log(JSON.stringify(result))
-  result = peopleFromLdap.filter(p=>!p.private);
+  return peopleFromLdap.filter(p=>(!p.private || (Object.keys(p.private).length === 0 && p.private.constructor === Object)));
 }
 
-doIt().then(function(){
+doIt().then(function(result){
   console.log(JSON.stringify(result))
   process.exit()})
 .catch(function(e){console.log(e); process.exit(1)});
