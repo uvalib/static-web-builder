@@ -128,6 +128,9 @@ for (var i=0; i<items.length; i++) {
     }
   }
   if (library.shortTitle.length == 0 || !library.shortTitle) items[i].shortTitle = library.title;
+  // replace drupal path for images
+  if (items[i].mainImage && items[i].mainImage.url)
+    items[i].mainImage.url = items[i].mainImage.url.replace('drupal.lib.virginia.edu/sites/default','library.virginia.edu');
 }
 var json = JSON.stringify(items).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
 //console.log(items);
