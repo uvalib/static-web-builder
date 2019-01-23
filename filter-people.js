@@ -1,4 +1,5 @@
 var _ = require('lodash'),
+    rp = require('request-promise'),
     argv = require('minimist')(process.argv.slice(2)),
     jsontr = require('./json-transform.js'),
     LdapClient = require('promised-ldap')
@@ -75,8 +76,8 @@ function stripEmpty(o) {
 
 var clean = function(item) {
   return item?
-    Array.isArray(item)? 
-      item.join(', '): 
+    Array.isArray(item)?
+      item.join(', '):
       item.replace(/^E0:/,''):
     "";
 }
@@ -104,7 +105,7 @@ async function getPeopleFromLdap(){
   var base = "ou=People,o=University of Virginia,c=US";
   var staff = await client.search(base, {filter:"(|(ou=E0:LB-Univ Librarian-General*)(ou=E0:LB-Central Svcs*)(ou=E0:LB-User Svcs*))", scope:'sub'});
 //  var staff = await client.search(base, {filter:"ou=E0:LB-Central Svcs", scope:'sub'});
-  return staff.entries.map(s=>{return tweekPerson(s.object)}); 
+  return staff.entries.map(s=>{return tweekPerson(s.object)});
 }
 
 async function doIt(){
@@ -114,10 +115,18 @@ async function doIt(){
   //var result = peopleFromLdap.map((uid)=>Object.assign(peopleFromLdap[uid], peopleFromDrupal[uid]))
   peopleFromLdap.forEach(p=>{
     if (peopleFromDrupal[p.computingId]) {
-      p = Object.assign(p, peopleFromDrupal[p.computingId]);      
-    }    
+      p = Object.assign(p, peopleFromDrupal[p.computingId]);
+    }
   });
-  return peopleFromLdap.filter(p=>(!p.private || (Object.keys(p.private).length === 0 && p.private.constructor === Object)));
+  var people = peopleFromLdap.filter(p=>(!p.private || (Object.keys(p.private).length === 0 && p.private.constructor === Object)));
+
+
+  var t = await rp({uri:'https://uvalib-api.firebaseio.com/teams.json',json:true});
+  people.forEach(p=>{
+    p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>t.uuid);
+  });
+
+  return people;
 }
 
 doIt().then(function(result){
