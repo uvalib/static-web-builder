@@ -82,6 +82,12 @@ var clean = function(item) {
     "";
 }
 
+function capFL(string) {
+    if (string)
+    return string.charAt(0).toUpperCase() + string.slice(1);
+    else return string;
+}
+
 var tweekPerson = function(person){
   var p = {
     fullName: person.displayName,
@@ -91,11 +97,11 @@ var tweekPerson = function(person){
     nickName: person.eduPersonNickname,
     jobTitle: clean(person.title),
 //    displayName: person.displayName,
-    displayName: person.givenName + " " + person.sn,
+    displayName: capFL(person.givenName) + " " + capFL(person.sn),
     phone: clean(person.telephoneNumber).replace(/^\+1 /g,''),
     fax: clean(person.facsimileTelephoneNumber).replace(/^\+1 /g,''),
-    firstName: person.givenName,
-    lastName: person.sn,
+    firstName: capFL(person.givenName),
+    lastName: capFL(person.sn),
     middleName: person.initials
   };
   return stripEmpty(p);
