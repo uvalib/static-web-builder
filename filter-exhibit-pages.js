@@ -86,6 +86,10 @@ var transform = {
   field_url_slug: {
     newName: "urlSlug",
     props: {value:String}
+  },
+  field_style_exhibit_header: {
+    newName: "styleHeader",
+    props: {color:String}
   }
 };
 
