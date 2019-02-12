@@ -88,7 +88,19 @@ var transform = {
     props: {value:String}
   },
   field_style_exhibit_header: {
-    newName: "styleHeader",
+    newName: "styleHeaderColor",
+    props: {color:String}
+  },
+  field_style_exhibit_header_text_: {
+    newName: "styleHeaderTextColor",
+    props: {color:String}
+  },
+  field_style_pre_footer_backgroun: {
+    newName: "stylePreFooterBackColor",
+    props: {color:String}
+  },
+  field_news_item_source_text_colo: {
+    newName: "styleNewsItemSourceTextColor",
     props: {color:String}
   }
 };
