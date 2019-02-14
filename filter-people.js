@@ -33,6 +33,14 @@ var transform = {
     newName: "linkedin",
     props: {value:String}
   },
+  field_orcid_id: {
+    newName: "field_orcid_id",
+    props: {value:String}
+  },
+  field_preferred_pronouns: {
+    newName: "pronouns",
+    props: {value:String}
+  },
   field_primary_office_location: {
     newName: "officeLocation",
     props: {value:String}
@@ -49,15 +57,47 @@ var transform = {
     newName:"twitter",
     props: {value:String}
   },
-  field_blogs: {
-    newName:"blogs",
-    prop: {value:String}
+  field_website: {
+    newName:"site",
+    props: {value:String}
   },
   field_library: {
     newName:"library",
     props: {
       target_uuid: {type: String, newName: "uuid"}
     }
+  },
+  field_address: {
+    newName:"address",
+    props: {value:String}
+  },
+  field_ask_me_about: {
+    newName:"askMeAbout",
+    props: {value:String}
+  },
+  field_cv: {
+    newName:"cv",
+    props: {uri:String}
+  },
+  field_email_alias: {
+    newName:"emailAlias",
+    props: {value:String}
+  },
+  field_employee_preferred_name: {
+    newName:"preferredName",
+    props: {value:String}
+  },
+  field_languages_spoken: {
+    newName:"languages",
+    props:{value:String}
+  },
+  field_research_guides: {
+    newName:"guides",
+    props:{uri:String}
+  },
+  field_subject_specialties: {
+    newName:"specialties",
+    props:{value:String}
   },
   field_private: {
     newName:"private",
