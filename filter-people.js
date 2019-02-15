@@ -170,7 +170,7 @@ async function doIt(){
 
   var t = await rp({uri:'https://uvalib-api.firebaseio.com/teams.json',json:true});
   people.forEach(p=>{
-    p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>t.uuid);
+    p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>{uuid:t.uuid, title:t.title});
   });
 
   return people;
