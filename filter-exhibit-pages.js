@@ -102,6 +102,26 @@ var transform = {
   field_news_item_source_text_colo: {
     newName: "styleNewsItemSourceTextColor",
     props: {color:String}
+  },
+  field_style_font_import: {
+    newName: "styleFontImport",
+    props: {value:String}
+  },
+  field_style_body_font: {
+    newName: "styleFont",
+    props: {value:String}
+  },
+  field_style_body_font_fallback: {
+    newName: "styleFontFallback",
+    props: {value:String}
+  },
+  field_style_headline_font: {
+    newName: "styleHeadlineFont",
+    props: {value:String}
+  },
+  field_style_headline_font_fallba: {
+    newName: "styleHeadlineFontFallback",
+    props: {value:String}
   }
 };
 
