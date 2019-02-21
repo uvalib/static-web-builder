@@ -99,6 +99,10 @@ var transform = {
     newName:"specialties",
     props:{value:String}
   },
+  field_schedule: {
+    newName:"schedule",
+    props: {uri:String}
+  },
   field_private: {
     newName:"private",
     prop: {value:Boolean}
