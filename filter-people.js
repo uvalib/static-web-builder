@@ -175,6 +175,7 @@ async function doIt(){
   var t = await rp({uri:'https://uvalib-api.firebaseio.com/teams.json',json:true});
   people.forEach(p=>{
     p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>t.uuid);
+    if (p.field_image && p.field_image.url) p.field_image.url = p.field_image.url.replace("drupal.lib.virginia.edu/sites/default","www.library.virginia.edu");
   });
 
   return people;
