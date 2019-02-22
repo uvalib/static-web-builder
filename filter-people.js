@@ -176,6 +176,7 @@ async function doIt(){
   people.forEach(p=>{
     p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>t.uuid);
     if (p.field_image && p.field_image.url) p.field_image.url = p.field_image.url.replace("drupal.lib.virginia.edu/sites/default","www.library.virginia.edu");
+    if (!Array.isArray(p.specialties)) p.specialties = [p.specialties];
   });
 
   return people;
