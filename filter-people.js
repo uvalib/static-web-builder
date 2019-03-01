@@ -150,7 +150,7 @@ var tweekPerson = function(person){
 async function getPeopleFromLdap(){
   var client = new LdapClient({url: 'ldap://ldap.virginia.edu'});
   var base = "ou=People,o=University of Virginia,c=US";
-  var staff = await client.search(base, {filter:"(|(ou=E0:LB-Univ Librarian-General*)(ou=E0:LB-Organizational Dev)(ou=E0:LB-Central Svcs*)(ou=E0:LB-User Svcs*)(&(ou=E0:LB-Info Technology)(!(uvaPersonFoundationName=Judge Advocate General School))))", scope:'sub'});
+  var staff = await client.search(base, {filter:"(&(ou=E0:LB-*)(!(uvaPersonFoundationName=Judge Advocate General School))(!(uvaPersonIAMAffiliation=sponsored)))", scope:'sub'});
 //  var staff = await client.search(base, {filter:"ou=E0:LB-Central Svcs", scope:'sub'});
   return staff.entries.map(s=>{return tweekPerson(s.object)});
 }
