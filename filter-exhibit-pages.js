@@ -124,5 +124,7 @@ var transform = {
     props: {value:String}
   }
 };
-
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+var json = JSON.stringify(jsontr.transform(items,transform))
+  .replace(/drupal\.lib\.virginia\.edu\/sites\/default\/files\//g,"www.library.virginia.edu/files/")
+  .replace(/\/sites\/default\/files\//g,"https://www.library.virginia.edu/files/")
+console.log( json );
