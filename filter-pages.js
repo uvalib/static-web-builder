@@ -35,6 +35,10 @@ var transform = {
     newName: "iframe",
     props: {value:Boolean}
   },
+  field_advanced_hide_title_breadc: {
+    newName: "hideHeader",
+    props: {value:Boolean}
+  },
   field_advanced_alt_template: {
     newName: "template",
     props: {value:String}
