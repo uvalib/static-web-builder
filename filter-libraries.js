@@ -111,6 +111,10 @@ var transform = {
     newName: "zipCode",
     props: {value:String}
   },
+  field_google_my_business: {
+    newName: "googleMyBusiness",
+    props: {value:Boolean}
+  },
   field_parent: {
     newName: "parent",
     props: { target_uuid:String }
