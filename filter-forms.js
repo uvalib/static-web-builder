@@ -4,7 +4,7 @@ var exec = require('child_process').exec,
     i = 0,
     allForms = Array();
 
-var formList = _.filter(pageList, function(obj) { return obj.field_webform.length > 0;});
+var formList = _.filter(pageList, function(obj) { return obj.field_webform && obj.field_webform.length > 0;});
 
 // See https://stackoverflow.com/questions/35055731/how-to-deeply-map-object-keys-with-javascript-lodash
 // for use of mixin to add this deep mapping solution to remove # from keys to get past Firebase issue
