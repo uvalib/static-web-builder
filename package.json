@@ -2,7 +2,6 @@
   "name": "static-site-resources",
   "devDependencies": {
     "assert": "latest",
-    "firebase-import": "latest",
     "google-spreadsheet": "latest",
     "ldapjs": "latest",
     "minimist": "latest",
@@ -49,6 +48,7 @@
     "fbgraph": "latest",
     "firebase": "latest",
     "firebase-admin": "latest",
+    "firebase-import": "latest",
     "imagemagick": "latest",
     "imagemin": "latest",
     "imagemin-jpegtran": "latest",
