@@ -119,11 +119,17 @@ function stripEmpty(o) {
 }
 
 var clean = function(item) {
-  return item?
-    Array.isArray(item)?
-      item.join(', '):
-      item.replace(/^E0:/,''):
-    "";
+  if (item) {
+    if (Array.isArray(item)) {
+      item = item.filter(i=>i.indexOf("E1:")==-1);
+      item = item.map(i=>{return i.replace(/E0:/,'')});
+    } else {
+      item = item.replace(/^E0:/,'');
+    }
+    return item;
+  } else {
+    return "";
+  }
 }
 
 function capFL(string) {
