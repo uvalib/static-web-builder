@@ -121,10 +121,10 @@ function stripEmpty(o) {
 var clean = function(item) {
   if (item) {
     if (Array.isArray(item)) {
-      item = item.filter(i=>i.indexOf("E1:")==-1);
-      item = item.map(i=>{return i.replace(/E0:/,'')});
+      item = item.filter(i=>{return i.indexOf("E1:")==-1});
+      item = item.map(i=>{return i.replace(/^E0:/,'').replace(/^\+1 /g,'')});
     } else {
-      item = item.replace(/^E0:/,'');
+      item = item.replace(/^E0:/,'').replace(/^\+1 /g,'');
     }
     return item;
   } else {
@@ -148,8 +148,8 @@ var tweekPerson = function(person){
     jobTitle: clean(person.title),
     displayName: person.displayName,
 //    displayName: capFL(person.givenName) + " " + capFL(person.sn),
-    phone: clean(person.telephoneNumber).replace(/^\+1 /g,''),
-    fax: clean(person.facsimileTelephoneNumber).replace(/^\+1 /g,''),
+    phone: clean(person.telephoneNumber),
+    fax: clean(person.facsimileTelephoneNumber),
     firstName: capFL(person.givenName),
     lastName: capFL(person.sn),
     middleName: person.initials
