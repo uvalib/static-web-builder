@@ -147,8 +147,6 @@ var tweekPerson = function(person){
     nickName: person.eduPersonNickname,
     jobTitle: clean(person.title),
     displayName: person.displayName,
-    preferredName: (person.displayName.toLowerCase().indexOf(person.preferredName.toLowerCase()+' ')==-1)?
-      person.preferredName:null;,
 //    displayName: capFL(person.givenName) + " " + capFL(person.sn),
     phone: clean(person.telephoneNumber),
     fax: clean(person.facsimileTelephoneNumber),
