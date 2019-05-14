@@ -180,8 +180,8 @@ async function doIt(){
 
   var t = await rp({uri:'https://uvalib-api.firebaseio.com/teams.json',json:true});
   people.forEach(p=>{
-    p.teams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>t.uuid);
-    p.fullTeams = t.filter(t=>(t.members)?t.members.includes(p.computingId):false).map(t=>{ return {uuid:t.uuid,title:t.title}; });
+    p.teams = t.filter(t=>(t.members)?t.members.indexOf(p.computingId)>-1:false).map(t=>t.uuid);
+    p.fullTeams = t.filter(t=>(t.members)?t.members.indexOf(p.computingId)>-1:false).map(t=>{ return {uuid:t.uuid,title:t.title}; });
     if (p.field_image && p.field_image.url) p.field_image.url = p.field_image.url.replace("drupal.lib.virginia.edu/sites/default","www.library.virginia.edu");
     if (p.specialties && !Array.isArray(p.specialties)) p.specialties = [{value:p.specialties}];
   });

@@ -46,6 +46,9 @@ var getuserids = async function(){
     return map
   },{});
   items.forEach(i=>{
+    if (i.members && !Array.isArray(i.members)) {
+      i.members = [i.members];
+    }
     if (i.members && Array.isArray(i.members)) {
       i.members = i.members.map(j=>mapping[j.uuid])
     }
