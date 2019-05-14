@@ -47,10 +47,10 @@ var getuserids = async function(){
   },{});
   items.forEach(i=>{
     if (i.members && !Array.isArray(i.members)) {
-      i.members = [i.members];
+      i.members = [{uuid:i.members}];
     }
     if (i.members && Array.isArray(i.members)) {
-      i.members = i.members.map(j=>mapping[j.uuid])
+      i.members = i.members.map(function(j){ return mapping[j.uuid]})
     }
   });
 }
