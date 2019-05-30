@@ -95,6 +95,10 @@ var transform = {
     newName:"guides",
     props:{uri:String}
   },
+  field_schools: {
+    newName:"schools",
+    props:{value:String}
+  },
   field_subject_specialties: {
     newName:"specialties",
     props:{value:String}
