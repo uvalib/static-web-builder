@@ -34,8 +34,8 @@ var transform = {
     newName: "tone",
     props: {value:String}
   },
-  field_site_limited: {
-    newName: "site",
+  field_path_limited: {
+    newName: "pathLimited",
     props: {value:String}
   },
   field_desktop_image: {
