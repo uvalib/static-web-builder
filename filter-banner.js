@@ -34,6 +34,10 @@ var transform = {
     newName: "tone",
     props: {value:String}
   },
+  field_site_limited: {
+    newName: "site",
+    props: {value:String}
+  },
   field_desktop_image: {
     newName: "desktopImage",
     publishImage: 'url',
