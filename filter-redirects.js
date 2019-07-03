@@ -35,16 +35,6 @@ var transform = {
     newName: "code",
     props: {value:String}
   }
-
-
-  field_collection_info_url_: {
-    newName: "collectionURL",
-    props: {value:String}
-  },
-  field_col_type: {
-    newName: "collectionType",
-    props: {value:String}
-  }
 };
 
 var json = JSON.stringify( jsontr.transform(items,transform) ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
