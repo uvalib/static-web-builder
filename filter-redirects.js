@@ -34,6 +34,10 @@ var transform = {
   field_redirect_code: {
     newName: "code",
     props: {value:String}
+  },
+  field_priority: {
+    newName: "priority",
+    props: {value:Number}
   }
 };
 
