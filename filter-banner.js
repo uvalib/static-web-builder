@@ -34,7 +34,7 @@ var transform = {
     newName: "tone",
     props: {value:String}
   },
-  field_path_limited: {
+  field_field_path_limited: {
     newName: "pathLimited",
     props: {value:String}
   },
