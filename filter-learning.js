@@ -28,7 +28,11 @@ var transform = {
     props: {uri:String}
   },
   field_source: {
-    newName: "Source",
+    newName: "source",
+    props: {value:String}
+  },
+  field_category: {
+    newName: "category",
     props: {value:String}
   }
 };
