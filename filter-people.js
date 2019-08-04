@@ -170,7 +170,7 @@ async function getPeopleFromLdap(){
 }
 
 async function doIt(){
-  var peopleFromDrupal = jsontr.transform(items,transform).reduce(function(o,val){ o[val.computingId]=stripEmpty(val); return o; },{});
+  var peopleFromDrupal = jsontr.transform(items,transform).reduce(function(o,val){ o[val.computingId.trim()]=stripEmpty(val); return o; },{});
   var peopleFromLdap = await getPeopleFromLdap();
   // Merge the peopleFromLdap with peopleFromDrupal with drupal having priority priority for same keys
   //var result = peopleFromLdap.map((uid)=>Object.assign(peopleFromLdap[uid], peopleFromDrupal[uid]))
