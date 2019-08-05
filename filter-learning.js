@@ -37,5 +37,12 @@ var transform = {
   }
 };
 
-var json = JSON.stringify( jsontr.transform(items,transform) ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
+var items = jsontr.transform(items,transform).map(i=>{
+  if (i.category && typeof i.category === "string" )
+    i.category = [i.category];
+  else if (i.category && Array.isArray(i.category))
+    i.category = i.category.map(j=>j.value);
+  return i;
+})
+var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
 console.log( json );
