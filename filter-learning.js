@@ -50,6 +50,16 @@ var items = jsontr.transform(items,transform).map(i=>{
     i.category = [i.category.toLowerCase()];
   else if (i.category && Array.isArray(i.category))
     i.category = i.category.map(j=>j.value.toLowerCase());
+  i.format_display = (i.format === 'doc')?
+    "Document (PDF or other download)":
+    (i.format === 'interactive')?
+      "Interactive Tutorial":
+      (i.format === 'oer')?
+        "OER Repository":
+        (i.format === 'lb-form')?
+          "UVA Library Form":
+          (i.format === 'video')?
+            "Video":null;
   return i;
 })
 var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
