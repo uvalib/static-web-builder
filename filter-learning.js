@@ -34,14 +34,22 @@ var transform = {
   field_category: {
     newName: "category",
     props: {value:String}
+  },
+  field_format: {
+    newName: "format",
+    props: {value:String}
+  },
+  field_length: {
+    newName: "length",
+    props: {value:Number}
   }
 };
 
 var items = jsontr.transform(items,transform).map(i=>{
   if (i.category && typeof i.category === "string" )
-    i.category = [i.category];
+    i.category = [i.category.toLowerCase()];
   else if (i.category && Array.isArray(i.category))
-    i.category = i.category.map(j=>j.value);
+    i.category = i.category.map(j=>j.value.toLowerCase());
   return i;
 })
 var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
