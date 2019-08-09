@@ -50,7 +50,8 @@ var items = jsontr.transform(items,transform).map(i=>{
     i.category = [i.category.toLowerCase()];
   else if (i.category && Array.isArray(i.category))
     i.category = i.category.map(j=>j.value.toLowerCase());
-  i.format_display = (i.format === 'doc')?
+  i.simpleTitle = i.title.replace(/\(.*\)/,'');
+  i.formatDisplay = (i.format === 'doc')?
     "Document (PDF or other download)":
     (i.format === 'interactive')?
       "Interactive Tutorial":
