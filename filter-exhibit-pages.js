@@ -124,7 +124,14 @@ var transform = {
     props: {value:String}
   }
 };
-var json = JSON.stringify(jsontr.transform(items,transform))
+
+var items = jsontr.transform(items,transform).map(exh=>{
+  if (exh.styleFontImport && exh.styleFontImport.indexOf("@import")==-1) exh.styleFontImport = "@import url('"+exh.styleFontImport+"');";
+  return exh;
+});
+
+
+var json = JSON.stringify(items)
   .replace(/drupal\.lib\.virginia\.edu\/sites\/default\/files\//g,"www.library.virginia.edu/files/")
   .replace(/\/sites\/default\/files\//g,"https://www.library.virginia.edu/files/")
 console.log( json );
