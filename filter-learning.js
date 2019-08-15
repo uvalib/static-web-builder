@@ -53,6 +53,8 @@ var items = jsontr.transform(items,transform).map(i=>{
   else if (i.category && Array.isArray(i.category))
     i.category = i.category.map(j=>j.value.toLowerCase());
   i.simpleTitle = i.title.replace(/\(.*\)/,'');
+  i.actionTerm = (i.format === 'video')?
+    "Watch":"Go to";
   i.formatDisplay = (i.format === 'doc')?
     "Document (PDF or other download)":
     (i.format === 'interactive')?
