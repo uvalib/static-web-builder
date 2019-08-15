@@ -46,6 +46,8 @@ var transform = {
 };
 
 var items = jsontr.transform(items,transform).map(i=>{
+  if (i.learningItemUrl && i.learningItemUrl.indexOf('youtu.be')>-1 || i.learningItemUrl.indexOf('youtube.com')>-1)
+    i.youtubeLink = i.learningItemUrl;
   if (i.category && typeof i.category === "string" )
     i.category = [i.category.toLowerCase()];
   else if (i.category && Array.isArray(i.category))
