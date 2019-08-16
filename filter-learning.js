@@ -1,4 +1,5 @@
 var jsontr = require('./json-transform.js');
+var striptags = require('striptags');
 
 var items = require('./learning.json');
 var transform = {
@@ -53,6 +54,7 @@ var items = jsontr.transform(items,transform).map(i=>{
   else if (i.category && Array.isArray(i.category))
     i.category = i.category.map(j=>j.value.toLowerCase());
   i.simpleTitle = i.title.replace(/\(.*\)/,'');
+  i.textBody = striptags(i.body);
   i.actionTerm = (i.format === 'video')?
     "Watch":"Go to";
   i.formatDisplay = (i.format === 'doc')?
