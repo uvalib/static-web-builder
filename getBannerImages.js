@@ -7,7 +7,7 @@ var banners = require('./filtered-banners.json');
 
 var storage = gstorage({
   projectId: 'uvalib-api',
-  keyFilename: '/home/bamboo/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
+  keyFilename: '/home/teamcity/build-deploy-scripts/json-web-tokens/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 });
 
 var bucket = storage.bucket('uvalib-api.appspot.com');
@@ -19,7 +19,7 @@ var promises = banners.map(function(banner){
     var fileExt = banner.phoneImage.url.split('.').pop();
     var localName = banner.phoneImage.uuid+'.'+fileExt;
     var bucketFile = bucket.file(localName);
-    var bucketWriteStream = bucketFile.createWriteStream(); 
+    var bucketWriteStream = bucketFile.createWriteStream();
     var instream = request(banner.phoneImage.url);
     banner.phoneImage.url="https://storage.googleapis.com/uvalib-api.appspot.com/"+localName;
     var bF = bucket.file(localName);
@@ -36,7 +36,7 @@ promises = promises.concat(banners.map(function(banner){
     var instream = request(banner.tabletImage.url);
     banner.tabletImage.url="https://storage.googleapis.com/uvalib-api.appspot.com/"+localName;
     var bF = bucket.file(localName);
-    instream.pipe(bucketWriteStream).on('finish', function(){bF.makePublic(resolve)});    
+    instream.pipe(bucketWriteStream).on('finish', function(){bF.makePublic(resolve)});
   });
 }));
 
