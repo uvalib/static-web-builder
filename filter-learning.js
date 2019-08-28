@@ -2,8 +2,6 @@ var jsontr = require('./json-transform.js');
 var striptags = require('striptags');
 const fetch = require('node-fetch');
 
-//var items = require('./learning.json');
-
 fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
   .then(res => res.json())
   .then(async function(items){
@@ -76,11 +74,6 @@ fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
                       });
                     });
 
-//
-//      .then(res => res.json())
-//      .then(function(tags){
-
-
         var items = jsontr.transform(items,transform).map(i=>{
           i.tags = (Array.isArray(i.tags))?
             i.tags.map(i=>tags.find(t=>t.uuid==i.target_uuid)):
@@ -109,8 +102,6 @@ fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
         })
         var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
         console.log( json );
-
-
 
 
     });
