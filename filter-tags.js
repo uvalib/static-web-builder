@@ -28,6 +28,7 @@ fetch("https://drupal.lib.virginia.edu/rest/tags?_format=json")
             return i;
           }
         );
+        items.sort((a,b)=>(a.name>b.name)? 1:-1);
         var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
         console.log( json );
 

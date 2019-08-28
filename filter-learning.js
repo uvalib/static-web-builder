@@ -81,6 +81,7 @@ fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
           i.tags = (Array.isArray(i.tags))?
             i.tags.map(i=>tags.find(t=>t.uuid==i.target_uuid)):
             [tags.find(t=>t.uuid==i.tags)];
+          i.tags.sort((a,b)=>(a.name>b.name)? 1:-1);
           i.tagids = i.tags.map(i=>i.uuid);
           if (i.learningItemUrl && i.learningItemUrl.indexOf('youtu.be')>-1 || i.learningItemUrl.indexOf('youtube.com')>-1)
             i.youtubeId = i.learningItemUrl.replace(/.*youtu.be\//,"").replace(/.*youtube.com\/embed\//,"");
