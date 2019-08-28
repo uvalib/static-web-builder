@@ -1,4 +1,5 @@
 var jsontr = require('./json-transform.js');
+var striptags = require('striptags');
 const fetch = require('node-fetch');
 
 fetch("https://drupal.lib.virginia.edu/rest/tags?_format=json")
@@ -21,7 +22,12 @@ fetch("https://drupal.lib.virginia.edu/rest/tags?_format=json")
       }
     };
 
-        var items = jsontr.transform(items,transform)
+        var items = jsontr.transform(items,transform).map(
+          i=>{
+            i.description = striptags(i.description);
+            return i;
+          }
+        );
         var json = JSON.stringify( items ).replace("drupal.lib.virginia.edu/sites/default","wwwstatic.lib.virginia.edu");
         console.log( json );
 

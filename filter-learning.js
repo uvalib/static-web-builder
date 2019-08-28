@@ -71,6 +71,9 @@ fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
                           newName: 'icon',
                           props: {uri:String}
                         }
+                      }).map(i=>{
+                        i.description = striptags(i.description);
+                        return i;
                       });
                     });
 
