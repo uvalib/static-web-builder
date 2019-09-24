@@ -55,7 +55,7 @@
     "imagemin-jpegtran": "latest",
     "imagemin-pngquant": "latest",
     "imagemin-webp": "latest",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.22.2",
     "node-fetch": "^2.6.0",
     "promised-ldap": "^0.3.0",
