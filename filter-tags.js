@@ -19,6 +19,9 @@ fetch("https://drupal.lib.virginia.edu/rest/tags?_format=json")
       field_url_to_icon: {
         newName: 'icon',
         props: {uri:String}
+      },
+      weight: {
+        props: {value:Number}
       }
     };
 
