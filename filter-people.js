@@ -25,10 +25,10 @@ var transform = {
       target_uuid: {type: String, newName: "uuid"}
     }
   },
-  field_job_title: {
-    newName: "jobTitle",
-    props: {value:String}
-  },
+//  field_job_title: {
+//    newName: "jobTitle",
+//    props: {value:String}
+//  },
   field_linkedin: {
     newName: "linkedin",
     props: {value:String}
