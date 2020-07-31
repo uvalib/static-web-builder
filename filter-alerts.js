@@ -57,4 +57,6 @@ var transform = {
   }
 };
 
-console.log( JSON.stringify( jsontr.transform(items,transform) ) );
+var alerts = jsontr.transform(items,transform);
+if (Array.isArray(alerts)) alerts = alerts.filter(a=>a.severity!="alert0");
+console.log( JSON.stringify( alerts ) );
