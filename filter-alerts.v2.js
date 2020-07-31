@@ -58,5 +58,5 @@ var transform = {
 };
 
 var alerts = jsontr.transform(items,transform);
-if (Array.isArray(alerts)) alerts = alerts.filter(a=>a.severity=="alert0");
+if (Array.isArray(alerts)) alerts = alerts.filter(a=>a.severity=="alert4");
 console.log( JSON.stringify( alerts ) );
