@@ -24,7 +24,7 @@ function gatherForms() {
         path: formList[i].field_path[0].value,
         target_id: formList[i].field_webform[0].target_id
       }
-      var cmd = 'wget http://drupal.lib.virginia.edu/webform_rest/'+formList[i].field_webform[0].target_id+'/elements?_format=json -O frmDetail'+formList[i].field_webform[0].target_id+'.json'
+      var cmd = 'wget https://drupal.lib.virginia.edu/webform_rest/'+formList[i].field_webform[0].target_id+'/elements?_format=json -O frmDetail'+formList[i].field_webform[0].target_id+'.json'
       exec(cmd, function (error, stdout, stderr) {
         if (error !== null) {
           console.log('exec error: ' + error);
