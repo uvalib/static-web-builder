@@ -12,7 +12,7 @@
     "wget": "0.0.1"
   },
   "scripts": {
-    "get-counts": "ssh -i /home/teamcity/build-deploy-scripts/keys/teamcity_deploy -l teamcity_deploy suma-production-private.internal.lib.virginia.edu /usr/bin/php74 -e -r 'parse_str(\"foo=bar\", $_GET); include \"/var/www/html/suma/analysis/reports/lib/php/rawDataResults.php\";'",
+    "get-counts": "ssh -i /home/teamcity/build-deploy-scripts/keys/teamcity_deploy -l teamcity_deploy suma-production-private.internal.lib.virginia.edu /usr/bin/php74 -e -r 'parse_str\(\"foo=bar\", $_GET\); include \"/var/www/html/suma/analysis/reports/lib/php/rawDataResults.php\";'",
     "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize --out-html uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
     "home-component-sync": "rsync -avh bower_components/ static01.lib.virginia.edu:/lib_content47/static/bower_components",
     "old-files-sync": "wget -qO- https://drupal.lib.virginia.edu/feeds/files | node old-filter-files.js ",
