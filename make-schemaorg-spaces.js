@@ -1,5 +1,6 @@
 const libraries = require('./libraries.json'),
       placeTypes = require('./placeTypes.json'),
+      spaces = require('./spaces.json'),
       mustache = require('mustache'),
       fetch = require('node-fetch'),
       admin = require("firebase-admin");
@@ -89,6 +90,8 @@ async function fetchCalHours(){
         plibs.location[key].openingHoursSpecification = json.openingHoursSpecification;
       else delete plibs.location[key].openingHoursSpecification;
     }
+    if (spaces[key])
+      plibs.location[key].containedInPlace = spaces[key];
   }
 }
 
@@ -107,7 +110,7 @@ return fetchCalHours()
     //ref.update(plibs).then(() => process.exit(0));
     var promises = [];
     for (key in plibs.location) {
-      promises.push(ref.child(key).update(plibs.location[key]));
+      promises.push(ref.child('location/'+key).update(plibs.location[key]));
     }
     Promise.all(promises).then(()=>process.exit(0));
   });
