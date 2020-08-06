@@ -111,13 +111,13 @@ return fetchCalHours()
     var promises = [];
     for (key in plibs.location) {
       for (prop in plibs.location[key]) {
-        if (prop == "containedInPlace") {
-          for (place in plibs.location[key][prop][place]) {
-            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update(plibs.location[key][prop][place]));
-          }
-        } else {
+//        if (prop == "containedInPlace") {
+//          for (place in plibs.location[key][prop][place]) {
+//            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update(plibs.location[key][prop][place]));
+//          }
+//        } else {
           promises.push(ref.child('location/'+key+'/'+prop).update(plibs.location[key][prop]));
-        }
+//        }
       }
     }
     Promise.all(promises).then(()=>process.exit(0));
