@@ -111,13 +111,15 @@ return fetchCalHours()
     var promises = [];
     for (key in plibs.location) {
       for (prop in plibs.location[key]) {
-//        if (prop == "containedInPlace") {
-//          for (place in plibs.location[key][prop][place]) {
-//            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update(plibs.location[key][prop][place]));
-//          }
-//        } else {
-          promises.push(ref.child('location/'+key+'/'+prop).update(plibs.location[key][prop]));
-//        }
+        if (prop == "containedInPlace" || prop == "openingHoursSpecification") {
+          for (place in plibs.location[key][prop]) {
+            var val = {}; val[place]= plibs.location[key][prop][place];
+            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update( val ));
+          }
+        } else {
+          var val = {}; val[prop]= plibs.location[key][prop];
+          promises.push( ref.child('locations-schemaorg/location/'+key+'/'+prop).update( val ) );
+        }
       }
     }
     Promise.all(promises).then(()=>process.exit(0));
