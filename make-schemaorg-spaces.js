@@ -110,7 +110,15 @@ return fetchCalHours()
     //ref.update(plibs).then(() => process.exit(0));
     var promises = [];
     for (key in plibs.location) {
-      promises.push(ref.child('location/'+key).update(plibs.location[key]));
+      for (prop in plibs.location[key]) {
+        if (prop == "containedInPlace") {
+          for (place in plibs.location[key][prop][place]) {
+            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update(plibs.location[key][prop][place]));
+          }
+        } else {
+          promises.push(ref.child('location/'+key+'/'+prop).update(plibs.location[key][prop]));
+        }
+      }
     }
     Promise.all(promises).then(()=>process.exit(0));
   });
