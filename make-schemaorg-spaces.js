@@ -114,11 +114,11 @@ return fetchCalHours()
         if (prop == "containedInPlace" || prop == "openingHoursSpecification") {
           for (place in plibs.location[key][prop]) {
             var val = {}; val[place]= plibs.location[key][prop][place];
-            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update( val ));
+            promises.push(ref.child('location/'+key+'/'+prop).update( val ));
           }
         } else {
           var val = {}; val[prop]= plibs.location[key][prop];
-          promises.push( ref.child('locations-schemaorg/location/'+key+'/'+prop).update( val ) );
+          promises.push( ref.child('locations-schemaorg/location/'+key).update( val ) );
         }
       }
     }
