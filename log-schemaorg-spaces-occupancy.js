@@ -3,8 +3,6 @@ const
       counts = require('./counts.json'),
       admin = require("firebase-admin");
 
-console.log(counts);
-
 // Fetch the service account key JSON file contents
 var serviceAccount = require(process.env.firebasekey);
 
@@ -42,10 +40,50 @@ ref.child('location').once('value', (snap)=>{
             counts.splice(i,1);
           }
         }
-        console.log('location/'+key+'/containedInPlace/'+placekey);
         promises.push(ref.child('location/'+key+'/containedInPlace/'+placekey).update( lib.containedInPlace[placekey] ))
       }
     }
   }
-  Promise.all(promises).then(()=>process.exit(0));
+  Promise.all(promises)
+    .then(()=>{
+      // log latest headcount and non mask count per space
+      for (key in libs) {
+        var lib = libs[key];
+        if (lib.containedInPlace) {
+          var totalCount = 0;
+          var startCount = "";
+          var endCount = "";
+          var totalnmCount = 0;
+          var startnmCount = null;
+          var endnmCount = null;
+          for (placekey in lib.containedInPlace) {
+            var place = lib.containedInPlace[placekey];
+            if (place.headCounts) {
+              const latestTimestamp = Object.keys(place.headCounts).sort().reverse()[0];
+              const count = place.headCounts[latestTimestamp].count;
+              place.occupancy = {"value":count,"timestamp":latestTimestamp};
+              promises.push(ref.child('location/'+key+'/containedInPlace/'+placekey).update( {"occupancy":place.occupancy} ));
+              totalCount += count;
+              startCount = (latestTimestamp < startCount || !startCount )? latestTimestamp:startCount;
+              endCount = (latestTimestamp > endCount || !endCount )? latestTimestamp:endCount;
+            }
+            if (place.noMaskCounts) {
+              const latestTimestamp = Object.keys(place.noMaskCounts).sort().reverse()[0];
+              const count = place.noMaskCounts[latestTimestamp].count;
+              place.noMaskCount = {"value":count,"timestamp":latestTimestamp};
+              promises.push(ref.child('location/'+key+'/containedInPlace/'+placekey).update( {"noMaskCount":place.noMaskCount} ));
+              totalnmCount += count;
+              startnmCount = (latestTimestamp < startnmCount || !startnmCount )? latestTimestamp:startnmCount;
+              endnmCount = (latestTimestamp > endnmCount || !endnmCount )? latestTimestamp:endnmCount;
+            }
+          }
+          lib.occupancy = {"value":totalCount,"timestamp_start":startCount,"timestamp_end":endCount};
+          promises.push(ref.child('location/'+key).update( {"occupancy":lib.occupancy} ));
+          lib.noMaskCount = {"value":totalnmCount,"timestamp_start":startnmCount,"timestamp_end":endnmCount};
+          promises.push(ref.child('location/'+key).update( {"noMaskCount":lib.noMaskCount} ));
+        }
+      }
+      return Promise.all(promises);
+    })
+    .then(()=>process.exit(0));
 })
