@@ -11,7 +11,7 @@ var serviceAccount = require(process.env.firebasekey);
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      databaseURL: "https://uvalib-api.firebaseio.com"
+      databaseURL: "https://uvalib-api-occupancy.firebaseio.com/"
 });
 var db = admin.database();
 var ref = db.ref("locations-schemaorg/");
