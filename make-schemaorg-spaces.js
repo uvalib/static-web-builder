@@ -113,8 +113,8 @@ return fetchCalHours()
       for (prop in plibs.location[key]) {
         if (prop == "containedInPlace" || prop == "openingHoursSpecification") {
           for (place in plibs.location[key][prop]) {
-            var val = {}; val[place]= plibs.location[key][prop][place];
-            promises.push(ref.child('location/'+key+'/'+prop).update( val ));
+//            var val = {}; val[place]= plibs.location[key][prop][place];
+            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update( plibs.location[key][prop][place] ));
           }
         } else {
           var val = {}; val[prop]= plibs.location[key][prop];
