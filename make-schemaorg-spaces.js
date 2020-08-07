@@ -118,7 +118,7 @@ return fetchCalHours()
           }
         } else {
           var val = {}; val[prop]= plibs.location[key][prop];
-          promises.push( ref.child('locations-schemaorg/location/'+key).update( val ) );
+          promises.push( ref.child('location/'+key).update( val ) );
         }
       }
     }
