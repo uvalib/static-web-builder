@@ -90,8 +90,11 @@ async function fetchCalHours(){
         plibs.location[key].openingHoursSpecification = json.openingHoursSpecification;
       else delete plibs.location[key].openingHoursSpecification;
     }
-    if (spaces[key])
+    if (spaces[key]) {
       plibs.location[key].containedInPlace = spaces[key];
+console.log(spaces[key])
+//console.log(plibs.location[key].containedInPlace);
+    }
   }
 }
 

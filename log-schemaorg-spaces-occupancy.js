@@ -17,13 +17,18 @@ var promises = [];
 ref.child('location').once('value', (snap)=>{
   var libs = snap.val();
   for (key in libs) {
+//console.log(key);
     var lib = libs[key];
     if (lib.containedInPlace) {
+//console.log(key);
       for (placekey in lib.containedInPlace) {
+console.log(placekey)
         var place = lib.containedInPlace[placekey];
+console.log(place.sumaMatch)
         // log any counts
         for (var i=0; i < counts.length; i++) {
           var entry = counts[i];
+
           if (entry.location.includes(place.sumaMatch)) {
             if (entry.activities[0]===1) {
               if(!place.headCounts) place.headCounts = {};
