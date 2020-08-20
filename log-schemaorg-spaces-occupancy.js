@@ -1,7 +1,8 @@
 const
       spaces = require('./spaces.json'),
       counts = require('./counts.json'),
-      admin = require("firebase-admin");
+      admin = require("firebase-admin"),
+      moment = require('moment');
 
 // Fetch the service account key JSON file contents
 var serviceAccount = require(process.env.firebasekey);
@@ -61,25 +62,33 @@ console.log(place.sumaMatch)
           var totalnmCount = 0;
           var startnmCount = null;
           var endnmCount = null;
+          const cutoff = moment().subtract(2,'hours');
+//console.log( cutoff );
           for (placekey in lib.containedInPlace) {
             var place = lib.containedInPlace[placekey];
             if (place.headCounts) {
               const latestTimestamp = Object.keys(place.headCounts).sort().reverse()[0];
+//console.log( latestTimestamp );
+//console.log( moment(latestTimestamp) );
               const count = place.headCounts[latestTimestamp].count;
               place.occupancy = {"value":count,"timestamp":latestTimestamp};
               promises.push(ref.child('location/'+key+'/containedInPlace/'+placekey).update( {"occupancy":place.occupancy} ));
-              totalCount += count;
-              startCount = (latestTimestamp < startCount || !startCount )? latestTimestamp:startCount;
-              endCount = (latestTimestamp > endCount || !endCount )? latestTimestamp:endCount;
+              if (cutoff.isBefore( moment(latestTimestamp) )) {
+                totalCount += count;
+                startCount = (latestTimestamp < startCount || !startCount )? latestTimestamp:startCount;
+                endCount = (latestTimestamp > endCount || !endCount )? latestTimestamp:endCount;
+              }
             }
             if (place.noMaskCounts) {
               const latestTimestamp = Object.keys(place.noMaskCounts).sort().reverse()[0];
               const count = place.noMaskCounts[latestTimestamp].count;
               place.noMaskCount = {"value":count,"timestamp":latestTimestamp};
               promises.push(ref.child('location/'+key+'/containedInPlace/'+placekey).update( {"noMaskCount":place.noMaskCount} ));
-              totalnmCount += count;
-              startnmCount = (latestTimestamp < startnmCount || !startnmCount )? latestTimestamp:startnmCount;
-              endnmCount = (latestTimestamp > endnmCount || !endnmCount )? latestTimestamp:endnmCount;
+              if (cutoff.isBefore( moment(latestTimestamp) )) {
+                totalnmCount += count;
+                startnmCount = (latestTimestamp < startnmCount || !startnmCount )? latestTimestamp:startnmCount;
+                endnmCount = (latestTimestamp > endnmCount || !endnmCount )? latestTimestamp:endnmCount;
+              }
             }
           }
           lib.occupancy = {"value":totalCount,"timestamp_start":startCount,"timestamp_end":endCount};
