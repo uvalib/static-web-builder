@@ -48,6 +48,7 @@
     "staff-aggregate-feeds--publish": "rsync -avh -e 'ssh -i $HOME/.ssh/id_rsa' dist/feeds/ static01.lib.virginia.edu:/lib_content47/static/feeds"
   },
   "dependencies": {
+    "@firebase/database": "^0.6.13",
     "@google-cloud/storage": "^1.1.0",
     "bower": "latest",
     "cheerio": "latest",
