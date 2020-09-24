@@ -15,7 +15,7 @@ const occupancyEstimators = [{
   pass: process.env.AXISPASS,
   domain: "axis-sel-main-c120.lib.virginia.edu",
   fbpath: "locations-schemaorg/location/science/estimatedOccupancy",
-  fblogpath: "locations-schemaorg/location/science/estimatedOccupancyLog"
+  fblogpath: "locationsLogs/science/estimatedOccupancylog"
 }]
 
 var promises = [];
