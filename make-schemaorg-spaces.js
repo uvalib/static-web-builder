@@ -90,11 +90,10 @@ async function fetchCalHours(){
         plibs.location[key].openingHoursSpecification = json.openingHoursSpecification;
       else delete plibs.location[key].openingHoursSpecification;
     }
-    if (spaces[key]) {
-      plibs.location[key].containedInPlace = spaces[key];
-console.log(spaces[key])
-//console.log(plibs.location[key].containedInPlace);
-    }
+//    if (spaces[key]) {
+//      plibs.location[key].containedInPlace = spaces[key];
+//      console.log(spaces[key])
+//    }
   }
 }
 
@@ -113,17 +112,26 @@ return fetchCalHours()
     //ref.update(plibs).then(() => process.exit(0));
     var promises = [];
     for (key in plibs.location) {
+
+console.log('Path:     /location/'+key);
+console.log(plibs.location[key]);
+/*      
       for (prop in plibs.location[key]) {
         if (prop == "containedInPlace" || prop == "openingHoursSpecification") {
           for (place in plibs.location[key][prop]) {
-//            var val = {}; val[place]= plibs.location[key][prop][place];
-            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update( plibs.location[key][prop][place] ));
+console.log('location/'+key+'/'+prop+'/'+place);
+console.log(plibs.location[key][prop][place]);            
+//            promises.push(ref.child('location/'+key+'/'+prop+'/'+place).update( plibs.location[key][prop][place] ));
           }
         } else {
           var val = {}; val[prop]= plibs.location[key][prop];
-          promises.push( ref.child('location/'+key).update( val ) );
+console.log('location/'+key)
+console.log(val);
+//          promises.push( ref.child('location/'+key).update( val ) );
         }
       }
+*/
+
     }
-    Promise.all(promises).then(()=>process.exit(0));
+//    Promise.all(promises).then(()=>process.exit(0));
   });
