@@ -65,7 +65,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
     "mustache": "^4.0.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "promised-ldap": "^0.3.0",
     "rename": "^1.0.4",
     "request": "^2.88.0",
