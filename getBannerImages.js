@@ -7,7 +7,7 @@ var banners = require('./filtered-banners.json');
 
 var storage = gstorage({
   projectId: 'uvalib-api',
-  keyFilename: '/Users/dhc4z/Downloads/uvalib-api-firebase-adminsdk-j6vj7-9dfcc7cb4d.json'
+  keyFilename: '/home/teamcity/build-deploy-scripts/json-web-tokens/uvalib-api-firebase-adminsdk-urtjy-b407df0805.json'
 });
 
 var bucket = storage.bucket('uvalib-api.appspot.com');
