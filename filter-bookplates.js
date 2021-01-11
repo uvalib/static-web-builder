@@ -62,13 +62,14 @@ async function process(items, transform){
     if (item.bookplateImage && item.bookplateImage.url) item.bookplateImage.url = item.bookplateImage.url.replace('https://drupal.lib.virginia.edu/sites/default/','https://wwwstatic.lib.virginia.edu/');
     if (item.fundID) {
       item.url = "https://www.library.virginia.edu/bookplates/"+item.fundID;
-
-      var bps = await request('https://search.lib.virginia.edu/catalog.json?f%5Bfund_code_facet%5D%5B%5D='+item.fundID+'&per_page=1');
+/*
+      var bps = await request('https://search.lib.virginia.edu/catalog.json?f%5Bfund_code_facet%5D%5B%5D='+item.fundID+'&per_page=1');     
       if (bps) bps = JSON.parse(bps);
       if (bps.response && bps.response.numFound > 0) {
 //        console.log('has bookplates!!!!!');
         item.bookplateResults = true;
       }
+*/      
     }
   }
   console.log( JSON.stringify( items ) );
