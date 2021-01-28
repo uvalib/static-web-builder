@@ -13,20 +13,26 @@ let app = admin.app();
 const apiDb = app.database();
 const occupancyDb = app.database("https://uvalib-api-occupancy.firebaseio.com/");
 
-var promises = []
 apiDb.ref('libraries').once("value",libraries=>{  
+
   var hoursKeys = libraries.val().reduce( (a,c)=>{ a[c.slug]=c.libcalID; return a;} ,{} )
+
   occupancyDb.ref('locations-schemaorg/location').once("value",loc=>{
+    var promises = [];
     let locations = loc.val();
     for (const key in locations) {
       const location = locations[key];
       if (location["@type"]==="Library" && hoursKeys[key])
-      fetch(libcalURL+hoursKeys[key]).then(res=>res.json())
+      promises.push (fetch(libcalURL+hoursKeys[key]).then(res=>res.json())
         .then(json=>{
-          promises.push(occupancyDb.ref('locations-schemaorg/location/'+key+'/openingHoursSpecification').set(json.openingHoursSpecification));
-        });
-    } 
+          console.log("write hours");
+          if (json.openingHoursSpecification)
+            return occupancyDb.ref('locations-schemaorg/location/'+key+'/openingHoursSpecification').set(json.openingHoursSpecification);
+          else
+            return Promise.resolve();  
+        }));
+    }
+    Promise.all(promises).then(()=>process.exit(0)) 
   });
-});
 
-Promise.all(promises).then(()=>process.exit(0));
+});
