@@ -118,6 +118,10 @@ var transform = {
   field_parent: {
     newName: "parent",
     props: { target_uuid:String }
+  },
+  field_closure_override: {
+    newName: "closureOverride",
+    props: {value:Number}
   }
 };
 
