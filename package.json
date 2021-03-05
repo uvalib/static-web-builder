@@ -63,6 +63,7 @@
     "imagemin-jpegtran": "latest",
     "imagemin-pngquant": "latest",
     "imagemin-webp": "latest",
+    "jsdom": "^16.4.0",
     "lodash": "^4.17.15",
     "luxon": "^1.25.0",
     "moment": "^2.27.0",
