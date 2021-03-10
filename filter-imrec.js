@@ -37,6 +37,17 @@ fetch("https://recsports.virginia.edu/")
   .then(res=>res.text())
   .then(text=>{
     // Get Facility Info (open/close)
+    const maindom = new JSDOM(text);
+    maindom.window.document.querySelectorAll('.view-single-facility-view > .view-content > div[class^="views-row"').forEach(s=>{
+      const f = s.querySelector('.views-field .field-content div');
+      if (map[f.id] && f.textContent.indexOf('OPEN UNTIL')>-1) {
+        console.log(f.id+" is open");
+        map[f.id].isOpenNow = true;
+      } else if (map[f.id]) {
+        console.log(f.id+" is closed");
+        map[f.id].isOpenNow = false;
+      }
+    });;
 }).then(i=>{
 
   return fetch("https://www.go.recsports.virginia.edu/facilityoccupancy")
@@ -57,7 +68,7 @@ fetch("https://recsports.virginia.edu/")
         "@type":"IMRec",
   //      "geo":{"@type":"GeoCoordinates","latitude":38.0331,"longitude":-78.507999},
   //      "image":["https://library.virginia.edu/files/2018-03/Brown_ServiceDesk.jpg"],
-  //      "isOpenNow":false,
+        "isOpenNow":space.isOpenNow,
         "maximumAttendeeCapacity":f.querySelector('.max-occupancy strong').textContent.trim(),
         "name":f.querySelector('.occupancy-card-header h2').textContent.trim(),
         "occupancy":{
@@ -86,7 +97,8 @@ fetch("https://recsports.virginia.edu/")
             console.log("we have a value");
             return db.ref("locations-schemaorg/location/"+key).update({
               maximumAttendeeCapacity: space.maximumAttendeeCapacity,
-              occupancy: space.occupancy
+              occupancy: space.occupancy,
+              isOpenNow: space.isOpenNow? space.isOpenNow:false
             });
           } else {
             console.log("no value yet");
