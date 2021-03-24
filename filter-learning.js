@@ -70,6 +70,9 @@ fetch("https://drupal.lib.virginia.edu/rest/learning-items?_format=json")
                         field_url_to_icon: {
                           newName: 'icon',
                           props: {uri:String}
+                        },
+                        parent: {
+                          props: {target_uuid:String, url:String}
                         }
                       }).map(i=>{
                         i.description = striptags(i.description);

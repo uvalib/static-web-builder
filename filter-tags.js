@@ -22,7 +22,10 @@ fetch("https://drupal.lib.virginia.edu/rest/tags?_format=json")
       },
       weight: {
         props: {value:Number}
-      }
+      },
+      parent: {
+        props: {target_uuid:String, url:String}
+      }  
     };
 
         var items = jsontr.transform(items,transform).map(
