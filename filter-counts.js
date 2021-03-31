@@ -10,13 +10,22 @@ admin.initializeApp({
 });
 const db = admin.database();
 
-const occupancyEstimators = [{
+const occupancyEstimators = [
+  {
   userId: process.env.AXISUSER,
   pass: process.env.AXISPASS,
   domain: "axis-sel-main-c120.lib.virginia.edu",
   fbpath: "locations-schemaorg/location/science/estimatedOccupancy",
   fblogpath: "locationsLogs/science/estimatedOccupancylog"
-}]
+  },
+  {
+    userId: process.env.AXISUSER,
+    pass: process.env.AXISPASS,
+    domain: "axis-clm-m3065v-c410a.lib.virginia.edu",
+    fbpath: "locations-schemaorg/location/clemons/estimatedOccupancy",
+    fblogpath: "locationsLogs/clemons/estimatedOccupancylog"
+  }
+]
 
 var promises = [];
 
