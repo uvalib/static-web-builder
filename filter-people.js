@@ -45,10 +45,10 @@ var transform = {
     newName: "officeLocation",
     props: {value:String}
   },
-  field_primary_phone: {
-    newName: "phone",
-    props: {value:String}
-  },
+//  field_primary_phone: {
+//    newName: "phone",
+//    props: {value:String}
+//  },
   field_professional_profile: {
     newName:"profile",
     props: {value:String}
