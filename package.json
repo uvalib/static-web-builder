@@ -75,7 +75,7 @@
     "request-promise": "^4.2.2",
     "rss": "latest",
     "social-aggregate": "git://github.com/uvalib/social-aggregate.git",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "vulcanize": "^1.15.4"
   }
 }
