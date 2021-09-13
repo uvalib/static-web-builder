@@ -39,6 +39,10 @@ var transform = {
     newName: "hideHeader",
     props: {value:Boolean}
   },
+  field_advanced_use_simple_header: {
+    newName: "simpleHeader",
+    props: {value:Boolean}
+  },
   field_advanced_alt_template: {
     newName: "template",
     props: {value:String}
