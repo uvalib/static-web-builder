@@ -1,11 +1,11 @@
 var _ = require('lodash'),
-//    rp = require('request-promise'),
     fetch = require('node-fetch'),
     argv = require('minimist')(process.argv.slice(2)),
     jsontr = require('./json-transform.js'),
     LdapClient = require('promised-ldap');
 
 var items = require('./people.json');
+
 var transform = {
   uuid: {
     props: {value:String}
@@ -184,10 +184,11 @@ async function doIt(){
 
 
   var t = await fetch('https://uvalib-api.firebaseio.com/teams.json').then(res=>res.json());
+  
   people.forEach(p=>{
     p.computingId = p.computingId.trim();
-    p.teams = t.filter(t=>(t.members)?t.members.indexOf(p.computingId)>-1:false).map(t=>t.uuid);
-    p.fullTeams = t.filter(t=>(t.members)?t.members.indexOf(p.computingId)>-1:false).map(t=>{ return {uuid:t.uuid,title:t.title}; });
+    p.teams = t.filter(t=>(t.members && Array.isArray(t.members))?t.members.indexOf(p.computingId)>-1:false).map(t=>t.uuid);
+    p.fullTeams = t.filter(t=>(t.members && Array.isArray(t.members))?t.members.indexOf(p.computingId)>-1:false).map(t=>{ return {uuid:t.uuid,title:t.title}; });
     if (p.field_image && p.field_image.url) p.field_image.url = p.field_image.url.replace("drupal.lib.virginia.edu/sites/default","www.library.virginia.edu");
     if (p.specialties && !Array.isArray(p.specialties)) p.specialties = [{value:p.specialties}];
   });
