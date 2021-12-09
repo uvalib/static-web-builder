@@ -1,5 +1,6 @@
 var _ = require('lodash'),
-    rp = require('request-promise'),
+//    rp = require('request-promise'),
+    fetch = require('node-fetch'),
     argv = require('minimist')(process.argv.slice(2)),
     jsontr = require('./json-transform.js'),
     LdapClient = require('promised-ldap');
@@ -182,7 +183,7 @@ async function doIt(){
   var people = peopleFromLdap.filter(p=>(!p.private || (Object.keys(p.private).length === 0 && p.private.constructor === Object)));
 
 
-  var t = await rp({uri:'https://uvalib-api.firebaseio.com/teams.json',json:true});
+  var t = await fetch('https://uvalib-api.firebaseio.com/teams.json').then(res=>res.json());
   people.forEach(p=>{
     p.computingId = p.computingId.trim();
     p.teams = t.filter(t=>(t.members)?t.members.indexOf(p.computingId)>-1:false).map(t=>t.uuid);
