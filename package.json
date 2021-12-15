@@ -3,13 +3,12 @@
   "devDependencies": {
     "assert": "latest",
     "firebase-import": "latest",
-    "google-spreadsheet": "^2.0.7",
     "ldapjs": "latest",
     "minimist": "latest",
     "nodeunit": "^0.11.3",
     "q": "latest",
     "request-json": "^0.6.4",
-    "wget": "0.0.1"
+    "wget": "^0.0.1"
   },
   "scripts": {
     "home-component-build": "cd bower_components/uvalib-page/ && ../../node_modules/vulcanize/bin/vulcanize --out-html uvalib-homepage.vulcanized.html uvalib-homepage.html --strip-comments",
